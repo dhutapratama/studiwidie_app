@@ -55,6 +55,7 @@
 	}
 
 	$system_path = 'ci_system';
+	date_default_timezone_set('Asia/Jakarta');
 
 	// Set the current directory correctly for CLI requests
 	if (defined('STDIN'))
