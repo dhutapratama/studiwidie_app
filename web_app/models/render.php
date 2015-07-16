@@ -7,9 +7,12 @@
 class Render extends CI_Model {
 
 	public function view($view = 'public/login', $data = array()) {
-		$this->load->view('static/header', $data);
-		$this->load->view($view);
-		$this->load->view('static/footer');
+		if(!isset($data['use_table'])) {
+			$data['use_table'] = false;
+		}
+		$this->load->view($this->session->userdata('user_type').'/header', $data);
+		$this->load->view($this->session->userdata('user_type').'/'.$view);
+		$this->load->view($this->session->userdata('user_type').'/footer');
 	}
 
 }
