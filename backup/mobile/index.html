@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Studiwidie</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+        @-ms-viewport { width: 100vw ; zoom: 100% ; }
+        @viewport { width: 100vw ; zoom: 100% ; }
+        @-ms-viewport { user-zoom: fixed ; }
+        @viewport { user-zoom: fixed ; }
+    </style>
+    
+    <link rel="stylesheet" href="jqm/jquery.mobile-1.4.5.css" />
+    <link rel="stylesheet" href="css/style.css" />
+	<script src="jqm/jquery.min.js"></script>
+	<script src="jqm/jquery.mobile-1.4.5.min.js"></script>
+
+    <script src="cordova.js"></script>
+    <script src="js/app.js"></script>
+    <script src="xdk/init-dev.js"></script>
+    <!--<script src="http://debug-software.intel.com/target/target-script-min.js#EHfvxwXr54s7zlXJ6mLO5aHhy8J3ZK5_JP7CqEAtYu8"></script>-->
+</head>
+
+<body>
+    
+<!-- 1. Halaman Login -->
+<div data-role="page" class="login-page" id="login-page">
+    
+	<div data-role="header" data-theme="a">
+    </div>
+    
+	<div role="main" class="ui-content login-main">
+        
+        <div class="login-width">
+            <img src="img/studiewidie.png" class="login-logo">
+        </div>
+        
+        <div id="login-text-1" class="ui-body ui-body-a login-width" style="display:none;">
+            <p>Sedang bekerja...</p>
+        </div>
+        
+        <div id="login-form" class="login-width">
+            <input type="text" placeholder="Username / Email" data-corners="false" id="login-username">
+            <input type="password" data-corners="false" placeholder="Password" id="login-password">
+            <a data-role="button" data-shadow="false" data-corners="false" class="ui-btn-active" href="#" id="tombol-login">Masuk</a>
+            <a href="#registrasi-page" id="link">Pendaftaran</a> | <a href="#lupa-password-page" data-transition="none" id="link">Lupa Password? </a>
+        </div>
+    </div>
+</div>
+
+<!-- 2. Halaman Registrasi -->
+<div data-role="page" class="login-page" id="registrasi-page" data-theme="a">
+	
+    <div data-role="header" id="registrasi-header">
+        <img src="img/studiewidie.png" class="registrasi-logo">
+    </div>
+    
+	<div role="main" class="ui-content">
+        
+        <div id="reg-quote" class="ui-body ui-body-a login-width">
+            <p>Dapatkan akses gratis Studiwidie!</p>
+        </div>
+        
+        <div id="registrasi-form" class="login-width">
+            <input type="email" name="nama" id="nama-registrasi" value="" placeholder="Nama">
+            <input type="email" name="email" id="email-registrasi" value="" placeholder="Email">
+            <input type="text" name="username" id="username-registrasi" value="" placeholder="Username">
+            <input type="password" name="password" id="password-registrasi" value="" placeholder="Password">
+            <input type="password" name="repassword" id="repassword-registrasi" value="" placeholder="Ulangi Password">
+            <a data-role="button" data-shadow="false" data-corners="false" class="ui-btn-active" href="#" id="tombol-register">Daftarkan</a>
+        </div>
+        
+    </div>
+</div>
+
+<!-- 3. Halaman Lupa Password -->
+<div data-role="page" class="login-page center" id="lupa-password-page" data-theme="a">
+	
+    <div data-role="header" id="registrasi-header">
+        <img src="img/studiewidie.png" class="registrasi-logo">
+    </div>
+    
+	<div role="main" class="ui-content">
+        
+        <div id="password-quote" class="ui-body ui-body-a login-width">
+            <p>Password baru akan dikirimkan ke email.</p>
+        </div>
+        
+        <form id="lupa-password" class="login-width">
+             <input type="email" id="email-lupa" value="" placeholder="Email">
+             <a data-role="button" data-shadow="false" data-corners="false" class="ui-btn-active" href="#" id="tombol-reset">Reset Password</a>
+        </form>
+        
+    </div>
+</div>
+
+<!-- 4. Halaman Utama -->
+<div data-role="page" id="utama-page" data-theme="a">
+	
+    <div data-role="header" id="utama-header">
+        <div class="utama-logo">
+            <img src="img/studiewidie.png" class="utama-logo-img">
+        </div>
+        
+        <div class="utama-navigation">
+        <a href="#panel-menu-utama" class="ui-btn ui-icon-bars ui-btn-icon-right ui-btn-icon-notext" id="menu-icon">Menu</a>
+        </div>
+        
+    </div>
+    
+	<div role="main" class="ui-content">
+        <ul data-role="listview" data-inset="true">
+            <li><a href="#belajar-page">
+                <img src="menu_icon/bookmarks.png">
+            <h2>Learning</h2>
+            <p>Belajar Materi Ujian</p></a>
+            </li>
+            <li><a href="#ujian-page">
+                <img src="menu_icon/checkmark.png">
+            <h2>Try Out</h2>
+            <p>Simulasi Ujian Nasional</p></a>
+            </li>
+            <li><a href="#histori-page">
+                <img src="menu_icon/calendar.png">
+            <h2>History</h2>
+            <p>Mereview Try Out Sebelumnya</p></a>
+            </li>
+        </ul>
+    </div>
+    
+	<div data-role="footer" class="ui-footer-fixed" id="trans-footer">
+    </div>
+    
+    <div data-role="panel" id="panel-menu-utama" data-display="overlay" data-theme="b">
+		<ul data-role="listview">
+            <li data-role="list-divider" id="nama-user">Menu</li>
+            <li data-icon="info"><a href="#about-page">About</a></li>
+			<li data-icon="power"><a href="#login-page" id="tombol-logout">Keluar</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- 5. Halaman Belajar -->
+<div data-role="page" class="" id="belajar-page">
+	
+    <div data-role="header" id="utama-header">
+        <div class="utama-logo">
+            <img src="img/studiewidie.png" class="utama-logo-img">
+        </div>
+        
+        <div class="utama-navigation">
+        <a href="#panel-menu-belajar" class="ui-btn ui-icon-bars ui-btn-icon-right ui-btn-icon-notext" id="menu-icon">Menu</a>
+        </div>
+    </div>
+    
+	<div role="main" class="ui-content">
+        
+        <ul data-role="listview" data-inset="true" id="learning-mapel">
+
+        </ul>
+        
+        <div data-role="panel" id="panel-menu-belajar" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li data-role="list-divider" id="nama-user">Menu</li>
+                <li data-icon="info"><a href="#about-page">About</a></li>
+                <li data-icon="power"><a href="#login-page" id="tombol-logout">Keluar</a></li>
+            </ul>
+        </div>
+    </div>
+    
+	<div data-role="footer" class="ui-footer-fixed" id="trans-footer">
+        <a href="#utama-page" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left ui-btn-icon-notext">Back</a>
+    </div>
+</div>
+    
+<!-- 5.1. Halaman Belajar Materi -->
+<div data-role="page" class="" id="belajar-materi-page">
+	
+    <div data-role="header" id="utama-header">
+        <div class="utama-logo">
+            <img src="img/studiewidie.png" class="utama-logo-img">
+        </div>
+        
+        <div class="utama-navigation">
+        <a href="#panel-menu-belajar" class="ui-btn ui-icon-bars ui-btn-icon-right ui-btn-icon-notext" id="menu-icon">Menu</a>
+        </div>
+    </div>
+    
+	<div role="main" class="ui-content">
+        <div role="main" class="ui-content">
+            <ul data-role="listview" data-inset="true" id="learning-materi">
+            </ul>
+        </div>
+        
+        <div data-role="panel" id="panel-menu-belajar" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li data-role="list-divider" id="nama-user">Menu</li>
+                <li data-icon="info"><a href="#about-page">About</a></li>
+                <li data-icon="power"><a href="#login-page" id="tombol-logout">Keluar</a></li>
+            </ul>
+        </div>
+    </div>
+    
+	<div data-role="footer" class="ui-footer-fixed" id="trans-footer">
+        <a href="#utama-page" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left ui-btn-icon-notext">Back</a>
+    </div>
+</div>
+    
+<!-- 5.2. Halaman Isi Materi -->
+<div data-role="page" class="" id="belajar-isi-page">
+	
+    <div data-role="header" id="utama-header">
+        <div class="utama-logo">
+            <img src="img/studiewidie.png" class="utama-logo-img">
+        </div>
+        
+        <div class="utama-navigation">
+        <a href="#panel-menu-belajar" class="ui-btn ui-icon-bars ui-btn-icon-right ui-btn-icon-notext" id="menu-icon">Menu</a>
+        </div>
+    </div>
+    
+	<div role="main" class="ui-content">
+        <h1 class="judul-learning"></h1>
+        <p class="isi-learning"></p>
+        
+        <div data-role="panel" id="panel-menu-belajar" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li data-role="list-divider" id="nama-user">Menu</li>
+                <li data-icon="info"><a href="#about-page">About</a></li>
+                <li data-icon="power"><a href="#login-page" id="tombol-logout">Keluar</a></li>
+            </ul>
+        </div>
+    </div>
+    
+	<div data-role="footer" class="ui-footer-fixed" id="trans-footer">
+        <a href="#belajar-page" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left ui-btn-icon-notext">Back</a>
+    </div>
+</div>
+
+<!-- 6. Halaman Ujian (Pilih Materi) -->
+<div data-role="page" class="" id="ujian-page">
+	
+    <div data-role="header" id="utama-header">
+        <div class="utama-logo">
+            <img src="img/studiewidie.png" class="utama-logo-img">
+        </div>
+        
+        <div class="utama-navigation">
+        <a href="#panel-menu-ujian" class="ui-btn ui-icon-bars ui-btn-icon-right ui-btn-icon-notext" id="menu-icon">Menu</a>
+        </div>
+        
+    </div>
+    
+	<div role="main" class="ui-content">
+        <ul data-role="listview" data-inset="true" id="materi-ujian">
+        </ul>
+        
+        <div data-role="panel" id="panel-menu-ujian" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li data-role="list-divider" id="nama-user">Menu</li>
+                <li data-icon="info"><a href="#about-page">About</a></li>
+                <li data-icon="power"><a href="#login-page">Keluar</a></li>
+            </ul>
+        </div>
+    </div>
+    
+	<div data-role="footer" class="ui-footer-fixed" id="trans-footer">
+        <a href="#utama-page" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left ui-btn-icon-notext">Back</a>
+    </div>
+    
+</div>
+
+<!-- 6.1. Halaman Ujian -->
+<div data-role="page" class="" id="tryout-page">
+	
+    <div data-role="header" id="utama-header">
+        <div class="utama-logo">
+            <img src="img/studiewidie.png" class="utama-logo-img">
+        </div>
+        
+        <div class="utama-navigation">
+        <a href="#panel-menu" class="ui-btn" id="menu-icon"><div id="sisa-waktu">Waktu!</div></a>
+        </div>
+    </div>
+    
+	<div role="main" class="ui-content">
+        <form>
+            <fieldset data-role="controlgroup" data-mini="true">
+                <legend id="soal-tryout">Mohon Tunggu</legend>
+                
+                <input name="jawaban" id="jawaban-a" value="a" type="radio">
+                <label for="jawaban-a" id="ans-a">A. </label>
+                <input name="jawaban" id="jawaban-b" value="b" type="radio">
+                <label for="jawaban-b" id="ans-b">B. </label>
+                <input name="jawaban" id="jawaban-c" value="c" type="radio">
+                <label for="jawaban-c" id="ans-c">C. </label>
+                <input name="jawaban" id="jawaban-d" value="d" type="radio">
+                <label for="jawaban-d" id="ans-d">D. </label>
+                <input name="jawaban" id="jawaban-e" value="e" type="radio">
+                <label for="jawaban-e" id="ans-e">E. </label>
+            </fieldset>
+        </form>
+    </div>
+    
+	<div data-role="footer" class="ui-footer-fixed">
+        <div data-role="navbar">
+			<ul id="nav-tryout" class="navtr">
+				<li><a href="#tryout-page" id="tombol-kembali" style="display:none;">Kembali</a></li>
+				<li><a href="#tryout-page" id="tombol-lanjut">Lanjut</a></li>
+			</ul>
+		</div>
+    </div>
+    
+</div>
+
+<div data-role="page" data-dialog="true" id="confirm-tryout" data-close-btn="none">
+    
+    <div data-role="header">
+    <h1>Info !</h1>
+    </div>
+
+    <div role="main" class="ui-content">
+    <h3>Anda akan memulai tryout online</h3>
+        <a href="#tryout-page" class="ui-btn ui-shadow ui-corner-all ui-btn-a" id="mulai-tryout">Lanjutkan</a>
+        <a href="#ujian-page" class="ui-btn ui-shadow ui-corner-all ui-btn-a">Batal</a>
+    </div>
+</div>
+    
+<div data-role="page" data-dialog="true" id="soal-habis" data-close-btn="none">
+    
+    <div data-role="header">
+    <h1>Info !</h1>
+    </div>
+
+    <div role="main" class="ui-content">
+    <h3>Soal belum tersedia.</h3>
+        <a href="#ujian-page" class="ui-btn ui-shadow ui-corner-all ui-btn-a">Kembali</a>
+    </div>
+</div>
+    
+<!-- 6.2. Halaman Pembahasan -->
+<div data-role="page" class="" id="pembahasan-page">
+	
+    <div data-role="header" id="utama-header">
+        <div class="utama-logo">
+            <img src="img/studiewidie.png" class="utama-logo-img">
+        </div>
+        
+        <div class="utama-navigation">
+        <a href="#panel-menu-pembahasan" class="ui-btn ui-icon-bars ui-btn-icon-right ui-btn-icon-notext" id="menu-icon">Menu</a>
+        </div>
+    </div>
+    
+	<div role="main" class="ui-content">
+        <form>
+            <fieldset data-role="controlgroup" data-mini="true">
+                <legend id="soal-tryout-p">Mohon Tunggu</legend>
+                
+                <input name="jawaban-p" id="jawaban-a-p" value="a" type="radio" disabled>
+                <label for="jawaban-a-p" id="ans-a-p">A. </label>
+                <input name="jawaban-p" id="jawaban-b-p" value="b" type="radio" disabled>
+                <label for="jawaban-b-p" id="ans-b-p">B. </label>
+                <input name="jawaban-p" id="jawaban-c-p" value="c" type="radio" disabled>
+                <label for="jawaban-c-p" id="ans-c-p">C. </label>
+                <input name="jawaban-p" id="jawaban-d-p" value="d" type="radio" disabled>
+                <label for="jawaban-d-p" id="ans-d-p">D. </label>
+                <input name="jawaban-p" id="jawaban-e-p" value="e" type="radio" disabled>
+                <label for="jawaban-e-p" id="ans-e-p">E. </label>
+            </fieldset>
+        </form>
+        <p>Kunci Jawaban : <span id="kunci-jawaban">-</span></p>
+        <div data-role="panel" id="panel-menu-pembahasan" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li data-role="list-divider" id="nama-user">Menu</li>
+                <li data-icon="info"><a href="#about-page">About</a></li>
+                <li data-icon="power"><a href="#login-page" id="tombol-logout">Keluar</a></li>
+            </ul>
+        </div>
+    </div>
+    
+	<div data-role="footer" class="ui-footer-fixed">
+        <div data-role="navbar">
+			<ul id="nav-tryout" class="navtr">
+				<li><a href="#pembahasan-page" id="tombol-kembali-p" style="display:none;">Kembali</a></li>
+				<li><a href="#pembahasan-page" id="tombol-lanjut-p">Lanjut</a></li>
+			</ul>
+		</div>
+    </div>
+    
+</div>
+
+<!-- 6.2. Halaman Ujian Hasil Nilai -->
+<div data-role="page" class="" id="nilai-page">
+	
+    <div data-role="header" id="utama-header">
+        <div class="utama-logo">
+            <img src="img/studiewidie.png" class="utama-logo-img">
+        </div>
+        
+        <div class="utama-navigation">
+        <a href="#panel-menu-ujian" class="ui-btn ui-icon-bars ui-btn-icon-right ui-btn-icon-notext" id="menu-icon">Menu</a>
+        </div>
+        
+    </div>
+    
+	<div role="main" class="ui-content">
+        Nilai Hasil Tryout
+        
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><div class="ui-bar ui-bar-a">Nilai</div></div>
+            <div class="ui-block-b"><div class="ui-bar ui-bar-a" id="nilai">Tunggu...</div></div>
+        </div><!-- /grid-a -->
+        
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><div class="ui-bar ui-bar-a">Benar</div></div>
+            <div class="ui-block-b"><div class="ui-bar ui-bar-a" id="benar">Tunggu...</div></div>
+        </div><!-- /grid-a -->
+        
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><div class="ui-bar ui-bar-a">Salah</div></div>
+            <div class="ui-block-b"><div class="ui-bar ui-bar-a" id="salah">Tunggu...</div></div>
+        </div><!-- /grid-a -->
+        
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><div class="ui-bar ui-bar-a">Jumlah Soal</div></div>
+            <div class="ui-block-b"><div class="ui-bar ui-bar-a" id="jumlah-soal">Tunggu...</div></div>
+        </div><!-- /grid-a -->
+        
+        <div data-role="panel" id="panel-menu-ujian" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li data-role="list-divider" id="nama-user">Menu</li>
+                <li data-icon="info"><a href="#about-page">About</a></li>
+                <li data-icon="power"><a href="#login-page">Keluar</a></li>
+            </ul>
+        </div>
+        <a data-role="button" data-shadow="false" data-corners="false" class="ui-btn-active" href="#pembahasan-page" id="tombol-pembahasan">Ke Soal &amp; Pembahasan</a>
+        <a data-role="button" data-shadow="false" data-corners="false" class="ui-btn-active" href="#utama-page" id="tombol-menu-utama">Ke Menu Utama</a>
+        
+    </div>
+    
+	<div data-role="footer" class="ui-footer-fixed" id="trans-footer">
+        <a href="#utama-page" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left ui-btn-icon-notext">Back</a>
+    </div>
+    
+</div>
+    
+<!-- 7. Halaman Histori -->
+<div data-role="page" class="histori-page" id="histori-page">
+	
+    <div data-role="header" id="utama-header">
+        <div class="utama-logo">
+            <img src="img/studiewidie.png" class="utama-logo-img">
+        </div>
+        
+        <div class="utama-navigation">
+        <a href="#panel-menu-history" class="ui-btn ui-icon-bars ui-btn-icon-right ui-btn-icon-notext" id="menu-icon">Menu</a>
+        </div>
+    </div>
+    
+	<div role="main" class="ui-content">
+        <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+            <li style="text-align:center">Tidak ada histori tryout.</li>
+        </ul>
+        
+        <div data-role="panel" id="panel-menu-history" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li data-role="list-divider" id="nama-user">Menu</li>
+                <li data-icon="info"><a href="#about-page">About</a></li>
+                <li data-icon="power"><a href="#login-page">Keluar</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="confirm" class="ui-content" data-role="popup" data-theme="a">
+        <p id="question">Are you sure you want to delete:</p>
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <a id="yes" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Yes</a>
+            </div>
+            <div class="ui-block-b">
+                <a id="cancel" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Cancel</a>
+            </div>
+        </div>
+    </div><!-- /popup -->
+    
+	<div data-role="footer" class="ui-footer-fixed" id="trans-footer">
+        <a href="#utama-page" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left ui-btn-icon-notext">Back</a>
+    </div>
+</div>
+
+<!-- 8. Halaman About -->
+<div data-role="page" class="" id="about-page" data-theme="a">
+	
+    <div data-role="header" id="">
+    </div>
+    
+	<div role="main" class="ui-content">
+        <p><img src="img/owner.jpg" id="owner"></p>
+        <p><b>Hello!</b> My name is Widie, and me as the owner of studiwidie.
+        <br><br>
+        This application is very useful for student that want test their ability and knowlwdge for ujian nasional.
+        <br><br>
+        Sicerly,<br>
+        Me</p>
+    </div>
+    
+	<div data-role="footer" class="ui-footer-fixed" id="trans-footer">
+        <a href="#utama-page" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left ui-btn-icon-notext">Back</a>
+    </div>
+</div>
+    
+<!-- HALAMAN ERROR -->
+<div data-role="page" class="login-page" id="network-error" data-theme="a">
+	
+    <div data-role="header" id="registrasi-header">
+        <img src="img/studiewidie.png" class="registrasi-logo">
+    </div>
+    
+	<div role="main" class="ui-content">
+        <div id="reg-quote" class="ui-body ui-body-a login-width">
+            <p>NETWORK ERROR</p>
+        </div>
+    </div>
+    
+	<div data-role="footer" class="ui-footer-fixed" id="trans-footer">
+    </div>
+</div>
+    
+    <!-- HALAMAN DEFAULT -->
+<div data-role="page" class="" id="default" data-theme="a">
+	
+    <div data-role="header" id="">
+    </div>
+    
+	<div role="main" class="ui-content">
+    </div>
+    
+	<div data-role="footer" class="ui-footer-fixed" id="trans-footer">
+        <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left ui-btn-icon-notext">Back</a>
+    </div>
+</div>
+</body>
+</html>

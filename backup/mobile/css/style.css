@@ -1,0 +1,213 @@
+/* Overriding Tema Dasar */
+.noshadow *
+{
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.ui-page-theme-a {
+ text-shadow: none;
+}
+
+#link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.ui-header {
+    background: none;
+    border: none;
+}
+
+.ui-input-text input {
+    padding: 0px 20px 0px 20px;
+    height: 2.5em;
+}
+
+#tombol {
+    background-color: #38C;
+    color: #fff;
+    text-shadow: none;
+    border: none;
+}
+
+#trans-footer {
+ text-align: center;
+}
+
+.ui-content {
+    padding-bottom: 5em;
+}
+/* ------ */
+
+/* 1. Halaman Login CSS */
+.login-page{
+    background-image: url( ./splash/720x960.png );
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-main {
+    text-align:center;
+}
+
+.login-logo {
+    width: 100%;
+    max-width: 450px;
+    margin-top: 25%;
+}
+
+@media screen and (max-height: 30em) {
+    .login-logo {
+        width: 50%;
+        max-width: 450px;
+        margin-top: 0em;
+    }
+}
+
+.login-width {
+    max-width: 30em;
+    margin: auto;
+}
+
+.regpass {
+    position: absolute;
+    bottom: 1em;
+    left: 0px;
+    width: 100%;
+    color: #fff;
+}
+
+/* 2. Halaman Registrasi */
+#registrasi-header {
+    background: none;
+    border: none;
+    text-align: center;
+}
+
+.registrasi-logo {
+    width: 50%;
+    margin-top: 1em;
+    max-width: 450px;
+}
+
+#reg-quote {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+#registrasi {
+ margin-bottom: 4em;   
+}
+
+#lupa-password {
+ margin-bottom: 4em;   
+}
+
+/* 3. Halaman Lupa Password */
+
+/* 4. Halaman Utama */
+#utama-header {
+    background: #38C;
+    height: 4em;
+}
+
+.utama-logo {
+    margin-left: 1em;
+    float: left;
+}
+
+.utama-logo-img {
+    margin-top: .8em;
+    height: 2.3em;   
+}
+
+.utama-navigation {
+    margin-left: auto;
+    margin-right: 1em;
+    text-align: right;
+    height: 3em;
+    padding-top: .5em;
+}
+
+#menu-icon {
+    background: none;
+    border: none;
+    color: #fff;
+    text-shadow: none;
+    font-size: 1em;
+}
+
+/* 5. History Page */
+/* 6. History Page */
+/* 7. Pembahasan Page */
+#kunci-jawaban {
+  background: greenyellow;
+  padding: .2em;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+
+/* 8. About Page */
+#owner {
+    width: 100%;
+    max-width: 20em;
+}
+/* Styling for the popup */
+/* Left transition */
+li.left {
+    -webkit-transition: -webkit-transform 250ms ease;
+    -webkit-transform: translateX(-100%);
+    -moz-transition: -moz-transform 250ms ease;
+    -moz-transform: translateX(-100%);
+    -o-transition: -o-transform 250ms ease;
+    -o-transform: translateX(-100%);
+    transition: transform 250ms ease;
+    transform: translateX(-100%);
+}
+/* Right transition */
+li.right {
+    -webkit-transition: -webkit-transform 250ms ease;
+    -webkit-transform: translateX(100%);
+    -moz-transition: -moz-transform 250ms ease;
+    -moz-transform: translateX(100%);
+    -o-transition: -o-transform 250ms ease;
+    -o-transform: translateX(100%);
+    transition: transform 250ms ease;
+    transform: translateX(100%);
+}
+/* Border bottom for the previous button during the transition*/
+li.left a.ui-btn,
+li.right a.ui-btn {
+    border-top-width: 0;
+    border-left-width: 1px;
+    border-right-width: 1px;
+}
+li a.ui-btn.border-bottom {
+    border-bottom-width: 1px;
+}
+/* Hide the delete button on touch devices */
+ul.touch li.ui-li-has-alt a.delete {
+    display: none;
+}
+ul.touch li.ui-li-has-alt a.ui-btn {
+    margin-right:0;
+}
+/* Styling for the popup */
+#confirm p {
+    text-align: center;
+    font-size: inherit;
+    margin-bottom: .75em;
+}
+
+
+.center {
+ text-align: center;
+}
+
+
+@media screen and (max-width: 767px) {
+
+}
