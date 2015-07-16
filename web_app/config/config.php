@@ -1,7 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $config['base_url'] = '';
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 $config['uri_protocol']	= 'AUTO';
 $config['url_suffix'] = '.html';
 $config['language']	= 'english';

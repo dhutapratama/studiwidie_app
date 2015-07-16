@@ -81,4 +81,22 @@ class M_users extends CI_Model{
 	// Custom Function
 	// ------------------------------
 
+	// Login as siswa
+	public function login($data = array('username' => '', 'password' => '')) {
+		$database = $this->db->select('*')
+					->from('users')
+					->where('username', $data['username'])
+					->where('password', md5($data['password']))
+					->get();
+
+		if ($database->num_rows() > 0) {
+			$database = $database->result();
+
+			$data['user_id'] 	= $this->encrypt->encode($database[0]->id);
+			$data['user_type'] 	= 'siswa';
+			$data['nama'] 		= $database[0]->nama;
+
+			$this->session->set_userdata($data);
+		}
+	}
 }

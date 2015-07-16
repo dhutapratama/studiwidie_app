@@ -9,7 +9,7 @@ class M_administrator extends CI_Model{
 	// Retrieve all data from table
 	public function get_administrator () {
 		$database = $this->db->select('*')
-					->from('administrator')
+					->from('administrators')
 					->get()->result();
 		return $database;
 	}
@@ -19,7 +19,7 @@ class M_administrator extends CI_Model{
 		$id = $this->encrypt->decode($encrypted_id);
 
 		$database = $this->db->select('*')
-					->from('administrator')
+					->from('administrators')
 					->where('id', $id)
 					->get();
 
@@ -47,7 +47,7 @@ class M_administrator extends CI_Model{
 
 		$data['created_date'] = date('Y-m-d H:i:s');
 		$data['updated_date'] = date('Y-m-d H:i:s');
-		$database = $this->db->insert('administrator', $data);
+		$database = $this->db->insert('administrators', $data);
 		return $database;
 	}
 
@@ -68,7 +68,7 @@ class M_administrator extends CI_Model{
 		}
 		
 		$this->db->where('id', $id);
-		$database = $this->db->update('administrator', $data);
+		$database = $this->db->update('administrators', $data);
 		return $database;
 	}
 
@@ -76,7 +76,7 @@ class M_administrator extends CI_Model{
 	public function delete_administrator ($encrypted_id = '') {
 		$id = $this->encrypt->decode($encrypted_id);
 		$this->db->where('id', $id);
-		$database = $this->db->delete('administrator');
+		$database = $this->db->delete('administrators');
 		return $database;
 	}
 
@@ -84,4 +84,22 @@ class M_administrator extends CI_Model{
 	// Custom Function
 	// ------------------------------
 
+	// Login as administrator
+	public function login($data = array('username' => '', 'password' => '')) {
+		$database = $this->db->select('*')
+					->from('administrators')
+					->where('username', $data['username'])
+					->where('password', md5($data['password']))
+					->get();
+
+		if ($database->num_rows() > 0) {
+			$database = $database->result();
+
+			$data['user_id'] 	= $this->encrypt->encode($database[0]->id);
+			$data['user_type'] 	= 'admin';
+			$data['nama'] 		= $database[0]->username;
+
+			$this->session->set_userdata($data);
+		}
+	}
 }

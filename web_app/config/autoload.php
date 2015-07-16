@@ -1,8 +1,13 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$autoload['packages'] = array();
-$autoload['libraries'] = array('database', 'session', 'encrypt');
-$autoload['helper'] = array();
-$autoload['config'] = array();
-$autoload['language'] = array();
-$autoload['model'] = array();
+$autoload['packages'] 	= array();
+$autoload['libraries'] 	= array('database', 'session', 'encrypt', 'session');
+$autoload['helper'] 	= array('url');
+$autoload['config'] 	= array();
+$autoload['language'] 	= array();
+$autoload['model'] 		= array(
+							'initial', 
+							'render', 
+							'm_administrator', 
+							'm_users'
+						);
