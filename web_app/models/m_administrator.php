@@ -41,8 +41,10 @@ class M_administrator extends CI_Model{
 			$data['updated_date'] = ;
 		*/
 
-		if (isset($data['password'])) {
+		if ($data['password'] != '') {
 			$data['password'] = md5($data['password']);
+		} else {
+			unset($data['password']);
 		}
 
 		$data['created_date'] = date('Y-m-d H:i:s');
@@ -63,8 +65,10 @@ class M_administrator extends CI_Model{
 		$data['updated_date'] = date('Y-m-d H:i:s');
 		$id = $this->encrypt->decode($encrypted_id);
 
-		if (isset($data['password'])) {
+		if ($data['password'] != '') {
 			$data['password'] = md5($data['password']);
+		} else {
+			unset($data['password']);
 		}
 		
 		$this->db->where('id', $id);

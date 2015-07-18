@@ -42,8 +42,10 @@ class M_users extends CI_Model{
 			$data['email']	  = ;
 		*/
 
-		if (isset($data['password'])) {
+		if ($data['password'] != '') {
 			$data['password'] = md5($data['password']);
+		} else {
+			unset($data['password']);
 		}
 
 		$database = $this->db->insert('users', $data);
@@ -59,8 +61,10 @@ class M_users extends CI_Model{
 			$data['email']	  = ;
 		*/
 
-		if (isset($data['password'])) {
+		if ($data['password'] != '') {
 			$data['password'] = md5($data['password']);
+		} else {
+			unset($data['password']);
 		}
 
 		$id = $this->encrypt->decode($encrypted_id);
@@ -97,6 +101,10 @@ class M_users extends CI_Model{
 			$data['nama'] 		= $database[0]->nama;
 
 			$this->session->set_userdata($data);
+		} else {
+			$message['message'] 	 = 'Pastikan username / password anda benar!';
+			$message['message_type'] = 'warning';
+			$this->session->set_flashdata($message);
 		}
 	}
 }
