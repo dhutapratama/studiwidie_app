@@ -43,6 +43,11 @@
             </div>
             <div class="col-md-6">
                 <div class="ibox-content">
+                    <?php if ($this->session->flashdata('message') != '') { ?>
+                    <div class="alert alert-<?php echo $this->session->flashdata('message_type'); ?>">
+                        <?php echo $this->session->flashdata('message'); ?>
+                    </div>
+                    <?php } ?>
                     <form class="m-t" role="form" action="<?php echo site_url('home/login'); ?>" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Username" required="" name="username">
