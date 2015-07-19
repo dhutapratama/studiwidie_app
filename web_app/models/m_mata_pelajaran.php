@@ -17,6 +17,10 @@ class M_mata_pelajaran extends CI_Model{
 	// Retrieve data by id from table
 	public function get_mata_pelajaran_by_id ($encrypted_id = '') {
 		$id = $this->encrypt->decode($encrypted_id);
+		
+		if ($id == '') {
+			$id = $this->encrypt->decode(urldecode($encrypted_id));
+		}
 
 		$database = $this->db->select('*')
 					->from('mata_pelajaran')
@@ -29,7 +33,6 @@ class M_mata_pelajaran extends CI_Model{
 		} else {
 			return false;
 		}
-		
 	}
 
 	// Insert data to table
