@@ -11,9 +11,13 @@ if ( ! function_exists('hash_id'))
 
 if ( ! function_exists('dehash_id'))
 {
-	function dehash_id($id = '')
+	function dehash_id($id = '', $urldec = false)
 	{
 		$CI =& get_instance();
-		return $CI->encrypt->decode($id);
+		if ($urldec == true) {
+			return $CI->encrypt->decode(urldecode($id));
+		} else {
+			return $CI->encrypt->decode($id);
+		}
 	}
 }
