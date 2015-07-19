@@ -30,7 +30,6 @@ class M_soal extends CI_Model{
 		} else {
 			return false;
 		}
-		
 	}
 
 	// Insert data to table
@@ -90,4 +89,57 @@ class M_soal extends CI_Model{
 	// Custom Function
 	// ------------------------------
 
+	public function get_soal_seri ($encrypted_id) {
+		$id = $this->encrypt->decode($encrypted_id);
+
+		$database = $this->db->select('*')
+					->from('soal')
+					->where('id_mapel', $id)
+					->group_by('no_seri')
+					->get()->result();
+		return $database;
+	}
+
+	public function get_jumlah_soal_by_seri ($no_seri = 0) {
+		$database = $this->db->select('*')
+					->from('soal')
+					->where('no_seri', $no_seri)
+					->get()->num_rows();
+		return $database;
+	}
+
+	public function get_soal_by_seri ($encrypted_id = 0) {
+		$no_seri  = $this->encrypt->decode($encrypted_id);
+		$database = $this->db->select('*')
+					->from('soal')
+					->where('no_seri', $no_seri)
+					->get();
+
+		if ($database->num_rows() > 0) {
+			$database = $database->result();
+			return $database;
+		} else {
+			return false;
+		}
+	}
+
+	// Delete data to table by id
+	public function delete_soal_by_seri ($encrypted_id = '') {
+		$no_seri = $this->encrypt->decode($encrypted_id);
+		$this->db->where('no_seri', $no_seri);
+		$database = $this->db->delete('soal');
+		return $database;
+	}
+
+		// Update data to table
+	public function update_seri ($encrypted_id = '', $data = array()) {
+		/*
+			$data['no_seri']	   = ;
+		*/
+
+		$no_seri = $this->encrypt->decode($encrypted_id);
+		$this->db->where('no_seri', $no_seri);
+		$database = $this->db->update('soal', $data);
+		return $database;
+	}
 }

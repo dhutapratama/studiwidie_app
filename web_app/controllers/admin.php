@@ -283,4 +283,241 @@ class Admin extends CI_Controller {
 		redirect('admin/siswa');
 	}
 	// End Siswa Function
+
+	// Start Soal Function
+	public function soal($action = '', $id = '', $action2 = '') {
+		switch ($action) {
+			case 'mapel':
+				$this->_pilih_seri($id, $action2);
+				break;
+
+			case 'add':
+				$this->_soal_add();
+				break;
+
+			case 'edit':
+				if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+					$this->_soal_update();
+				} else {
+					$id = $this->input->get('id');
+					$data['id']		  = $id;
+					$data['get_soal'] = $this->m_soal->get_soal_by_id($id);
+					if ($data['get_soal'] == false) {
+						$message['message'] 	 = 'ID tidak ditemukan! Silahkan coba kembali.';
+						$message['message_type'] = 'warning';
+						$this->session->set_flashdata($message);
+						redirect('admin/soal');
+					} else {
+						$this->render->view('soal_edit', $data);
+					}
+				}
+				break;
+
+			case 'delete':
+				$this->_soal_delete();
+				break;
+			
+			default:
+				$data['get_mata_pelajaran'] = $this->m_mata_pelajaran->get_mata_pelajaran();
+				$data['use_table'] 			= true;
+
+				$this->render->view('soal_pilih_mapel', $data);
+				break;
+		}
+	}
+
+	private function _pilih_seri($id = '', $action2) {
+		switch ($id) {
+			case 'seri':
+				$this->_soal_view($action2);
+				break;
+
+			default:
+				$id_mapel = $this->input->get('id_mapel');
+				$data['get_mapel'] = $this->m_mata_pelajaran->get_mata_pelajaran_by_id($id_mapel);
+
+				if ($data['get_mapel'] != false) {
+					$data['get_seri'] = $this->m_soal->get_soal_seri($id_mapel);
+					$data['use_table'] = true;
+					$this->render->view('soal_pilih_seri', $data);
+				} else {
+					$message['message'] 	 = 'Soal yang anda cari tidak ada, silahkan ulangi pilih mata pelajaran.';
+					$message['message_type'] = 'danger';
+					$this->session->set_flashdata($message);
+					redirect('admin/soal');
+				}
+				break;
+		}
+	}
+
+	private function _soal_view ($action2) {
+		switch ($action2) {
+			case 'add':
+				$this->_seri_add();
+				break;
+			
+			default:
+				$data['no_seri']  = dehash_id($this->input->get('id_seri_soal'));
+				$no_seri 		  = $this->input->get('id_seri_soal');
+				$data['get_soal'] = $this->m_soal->get_soal_by_seri($no_seri);
+				$data['id_mapel'] = $data['get_soal'][0]->id_mapel;
+
+				if ($data['get_soal'] != false) {
+					$data['use_table'] = true;
+					$this->render->view('soal', $data);
+				} else {
+					$message['message'] 	 = 'Nomor Seri Soal yang anda cari tidak ada, silahkan ulangi pilih mata pelajaran.';
+					$message['message_type'] = 'danger';
+					$this->session->set_flashdata($message);
+					redirect('admin/soal');
+				}
+				break;
+		}
+	}
+
+	private function _soal_add () {
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$data['id_mapel'] 	   = $this->input->post('id_mapel');
+			$data['no_seri'] 	   = $this->input->post('no_seri');
+			$data['soal'] 		   = $this->input->post('soal');
+			$data['jawaban_a'] 	   = $this->input->post('jawaban_a');
+			$data['jawaban_b'] 	   = $this->input->post('jawaban_b');
+			$data['jawaban_c'] 	   = $this->input->post('jawaban_c');
+			$data['jawaban_d'] 	   = $this->input->post('jawaban_d');
+			$data['jawaban_e']	   = $this->input->post('jawaban_e');
+			$data['kunci_jawaban'] = $this->input->post('kunci_jawaban');
+			$data['hint_1'] 	   = $this->input->post('hint_1');
+			$data['hint_2'] 	   = $this->input->post('hint_2');
+			$data['hint_3'] 	   = $this->input->post('hint_3');
+			$this->m_soal->insert_soal($data);
+
+			$message['message'] 	 = 'Sukses menambah data soal';
+			$message['message_type'] = 'success';
+			$this->session->set_flashdata($message);
+
+			redirect(base_url('admin/soal/mapel/seri.html').'?id_seri_soal='.hash_id($data['no_seri']));
+		} else {
+			$data['id_mapel'] = dehash_id($this->input->get('id_mapel'));
+			$data['no_seri'] = dehash_id($this->input->get('no_seri'));
+			$this->render->view('soal_add', $data);
+		}
+	}
+
+	private function _seri_add() {
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$data['no_seri']  = $this->input->post('no_seri');
+			$data['get_soal'] = array();
+			$data['id_mapel'] = $this->input->post('id_mapel');
+			$data['use_table'] = true;
+			$this->render->view('soal', $data);
+		} else {
+			redirect('admin/soal');
+		}
+	}
+
+	private function _soal_update () {
+		$id 		   	   	   = $this->input->post('id');
+		$data['no_seri'] 	   = $this->input->post('no_seri');
+		$data['soal'] 		   = $this->input->post('soal');
+		$data['jawaban_a'] 	   = $this->input->post('jawaban_a');
+		$data['jawaban_b'] 	   = $this->input->post('jawaban_b');
+		$data['jawaban_c'] 	   = $this->input->post('jawaban_c');
+		$data['jawaban_d'] 	   = $this->input->post('jawaban_d');
+		$data['jawaban_e']	   = $this->input->post('jawaban_e');
+		$data['kunci_jawaban'] = $this->input->post('kunci_jawaban');
+		$data['hint_1'] 	   = $this->input->post('hint_1');
+		$data['hint_2'] 	   = $this->input->post('hint_2');
+		$data['hint_3'] 	   = $this->input->post('hint_3');
+		$this->m_soal->update_soal($id, $data);
+
+		$message['message'] 	 = 'Sukses update data soal (ID : '.dehash_id($id).')';
+		$message['message_type'] = 'success';
+		$this->session->set_flashdata($message);
+
+		redirect(base_url('admin/soal/mapel/seri.html').'?id_seri_soal='.hash_id($data['no_seri']));
+	}
+
+	private function _soal_delete () {
+		$id = $this->input->get('id');
+		$get_soal = $this->m_soal->get_soal_by_id($id);
+		$no_seri  = $get_soal->no_seri;
+		$this->m_soal->delete_soal($id);
+
+		if ($get_soal == true) {
+			$message['message'] 	 = 'Sukses menghapus data soal (ID : '.dehash_id($id).')'.$respon;
+			$message['message_type'] = 'success';
+			$this->session->set_flashdata($message);
+			redirect(base_url('admin/soal/mapel/seri.html').'?id_seri_soal='.hash_id($no_seri));
+		} else {
+			$message['message'] 	 = 'ID tidak ditemukan! Silahkan coba kembali.';
+			$message['message_type'] = 'warning';
+			$this->session->set_flashdata($message);
+			redirect('admin/soal');
+		}
+	}
+	// End Soal Function
+
+	// Start function Seri
+	public function seri($action = '', $id = '') {
+		switch ($action) {
+			case 'edit':
+				if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+					$this->_seri_update();
+				} else {
+					$id = $this->input->get('id');
+					$data['id']		   = $id;
+					$data['get_soal'] = $this->m_soal->get_soal_by_seri($id);
+					if ($data['get_soal'] == false) {
+						$message['message'] 	 = 'ID tidak ditemukan! Silahkan coba kembali.';
+						$message['message_type'] = 'warning';
+						$this->session->set_flashdata($message);
+						redirect('admin/soal');
+					} else {
+						$this->render->view('seri_edit', $data);
+					}
+				}
+				
+				break;
+
+			case 'delete':
+				$this->_seri_delete();
+				break;
+			
+			default:
+				redirect('admin/soal');
+				break;
+		}
+	}
+
+	private function _seri_update () {
+		$id 		   	 = $this->input->post('id');
+		$data['no_seri'] = $this->input->post('no_seri');
+		$this->m_soal->update_seri($id, $data);
+
+		$message['message'] 	 = 'Sukses update nomor seri soal (ID : '.dehash_id($id).' -> '.$data['no_seri'].')';
+		$message['message_type'] = 'success';
+		$this->session->set_flashdata($message);
+
+		redirect(base_url('admin/soal/mapel/seri.html').'?id_seri_soal='.hash_id($data['no_seri']));
+	}
+
+	private function _seri_delete () {
+		$id 	  = $this->input->get('id');
+		$get_soal = $this->m_soal->get_soal_by_seri($id);
+
+		$this->m_soal->delete_soal_by_seri($id);
+
+		if ($get_soal == true) {
+			$message['message'] 	 = 'Sukses menghapus data seri dan semua soal (ID : '.dehash_id($id).')'.$respon;
+			$message['message_type'] = 'success';
+			$this->session->set_flashdata($message);
+		} else {
+			$message['message'] 	 = 'ID tidak ditemukan! Silahkan coba kembali.';
+			$message['message_type'] = 'warning';
+			$this->session->set_flashdata($message);
+		}
+
+		redirect(base_url('admin/soal/mapel.html').'?id_mapel='.hash_id($get_soal[0]->id_mapel));
+	}
+	// End function Seri
 }
