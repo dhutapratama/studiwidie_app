@@ -39,7 +39,7 @@
             });
         </script>
     <?php }
-        if ($use_editor == true) { ?>
+    if ($use_editor == true) { ?>
      <!-- SUMMERNOTE -->
     <script src="<?php echo base_url(); ?>assets/js/plugins/summernote/summernote.min.js"></script>
 
@@ -47,6 +47,18 @@
         $(document).ready(function(){
             $('.summernote').summernote();
        });
+    </script>
+    <?php }
+    if ($use_checker == true) { ?>
+    <!-- iCheck -->
+    <script src="<?php echo base_url(); ?>assets/js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
     </script>
     <?php } ?>
     </body>

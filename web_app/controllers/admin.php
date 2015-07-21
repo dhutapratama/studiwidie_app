@@ -308,6 +308,8 @@ class Admin extends CI_Controller {
 						$this->session->set_flashdata($message);
 						redirect('admin/soal');
 					} else {
+						$data['use_editor']  = true;
+						$data['use_checker'] = true;
 						$this->render->view('soal_edit', $data);
 					}
 				}
@@ -363,7 +365,8 @@ class Admin extends CI_Controller {
 				$data['id_mapel'] = $data['get_soal'][0]->id_mapel;
 
 				if ($data['get_soal'] != false) {
-					$data['use_table'] = true;
+					$data['use_table'] 	 = true;
+					$data['use_checker'] = true;
 					$this->render->view('soal', $data);
 				} else {
 					$message['message'] 	 = 'Nomor Seri Soal yang anda cari tidak ada, silahkan ulangi pilih mata pelajaran.';
@@ -397,8 +400,10 @@ class Admin extends CI_Controller {
 
 			redirect(base_url('admin/soal/mapel/seri.html').'?id_seri_soal='.hash_id($data['no_seri']));
 		} else {
-			$data['id_mapel'] = dehash_id($this->input->get('id_mapel'));
-			$data['no_seri'] = dehash_id($this->input->get('no_seri'));
+			$data['id_mapel'] 	= dehash_id($this->input->get('id_mapel'));
+			$data['no_seri'] 	= dehash_id($this->input->get('no_seri'));
+			$data['use_editor'] = true;
+			$data['use_checker'] = true;
 			$this->render->view('soal_add', $data);
 		}
 	}

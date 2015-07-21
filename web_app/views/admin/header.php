@@ -23,6 +23,9 @@
     if ($use_editor == true) { ?>
     <link href="<?php echo base_url(); ?>assets/css/plugins/summernote/summernote.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <?php } 
+    if ($use_checker == true) { ?>
+        <link href="<?php echo base_url(); ?>assets/css/plugins/iCheck/custom.css" rel="stylesheet">
     <?php } ?>
     
 </head>

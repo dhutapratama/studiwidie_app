@@ -25,7 +25,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Soal</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="soal" value="<?php echo $get_soal->soal; ?>">
+                                <textarea class="summernote" name="soal"><?php echo $get_soal->soal; ?></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -61,7 +61,31 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Kunci Jawaban</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="kunci_jawaban" value="<?php echo $get_soal->kunci_jawaban; ?>">
+                                <div class="radio i-checks">
+                                    <label>
+                                        <input type="radio" value="a" name="kunci_jawaban"<?php echo ($get_soal->kunci_jawaban =='a')?' checked':''; ?>> <i></i> A
+                                    </label>
+                                </div>
+                                <div class="radio i-checks">
+                                    <label>
+                                        <input type="radio" value="b" name="kunci_jawaban"<?php echo ($get_soal->kunci_jawaban =='b')?' checked':''; ?>> <i></i> B
+                                    </label>
+                                </div>
+                                <div class="radio i-checks">
+                                    <label>
+                                        <input type="radio" value="c" name="kunci_jawaban"<?php echo ($get_soal->kunci_jawaban =='c')?' checked':''; ?>> <i></i> C
+                                    </label>
+                                </div>
+                                <div class="radio i-checks">
+                                    <label>
+                                        <input type="radio" value="a" name="kunci_jawaban"<?php echo ($get_soal->kunci_jawaban =='d')?' checked':''; ?>> <i></i> D
+                                    </label>
+                                </div>
+                                <div class="radio i-checks">
+                                    <label>
+                                        <input type="radio" value="a" name="kunci_jawaban"<?php echo ($get_soal->kunci_jawaban =='e')?' checked':''; ?>> <i></i> E
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
