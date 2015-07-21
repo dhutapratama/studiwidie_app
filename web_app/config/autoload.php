@@ -11,5 +11,6 @@ $autoload['model'] 		= array(
 							'm_administrator', 
 							'm_users',
 							'm_mata_pelajaran',
-							'm_soal'
+							'm_soal',
+							'm_learning'
 						);

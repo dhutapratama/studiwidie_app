@@ -29,7 +29,6 @@ class M_learning extends CI_Model{
 		} else {
 			return false;
 		}
-		
 	}
 
 	// Insert data to table
@@ -70,4 +69,13 @@ class M_learning extends CI_Model{
 	// Custom Function
 	// ------------------------------
 
+	// Get Learning by id mata pelajaran
+	public function get_learning_by_id_mapel ($encrypted_id = '') {
+		$id_mapel = $this->encrypt->decode($encrypted_id);
+		$database = $this->db->select('*')
+					->from('learning')
+					->where('id_mapel', $id_mapel)
+					->get()->result();
+		return $database;
+	}
 }

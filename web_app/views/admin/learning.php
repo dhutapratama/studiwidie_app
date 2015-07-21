@@ -1,19 +1,16 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>SOAL</h2>
+        <h2>LEARNING</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="index.html">Home</a>
             </li>
             <li>
-                <a href="<?php echo site_url('admin/soal'); ?>"><?php echo $this->m_mata_pelajaran->get_mata_pelajaran_by_id(hash_id($id_mapel))->mapel; ?></a>
-            </li>
-            <li>
-                <a href="<?php echo site_url('admin/soal/mapel').'?id_mapel='.hash_id($id_mapel); ?>"><?php echo $no_seri; ?></a>
+                <a href="<?php echo site_url('admin/learning'); ?>"><?php echo $this->m_mata_pelajaran->get_mata_pelajaran_by_id($id_mapel)->mapel; ?></a>
             </li>
             <li class="active">
-                <strong>Soal</strong>
+                <strong>Materi Learning</strong>
             </li>
         </ol>
     </div>
@@ -27,9 +24,9 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>SOAL</h5>
+                    <h5>Materi Learning</h5>
                     <div class="ibox-tools">
-                        <a class="btn btn-primary btn-xs" href="<?php echo site_url('admin/soal/add').'?id_mapel='.hash_id($id_mapel).'&no_seri='.hash_id($no_seri); ?>">
+                        <a class="btn btn-primary btn-xs" href="<?php echo site_url('admin/learning/add').'?id_mapel='.hash_id($get_learning[0]->id_mapel); ?>">
                             <i class="fa fa-plus"></i> Add
                         </a>
                     </div>
@@ -53,17 +50,17 @@
                         <tbody>
                             <?php 
                             $nomor = 1;
-                            foreach ($get_soal as $key => $value) { 
+                            foreach ($get_learning as $key => $value) { 
                             ?>
                             <tr>
                                 <td><?php echo $nomor; ?>.</td>
                                 <td><?php echo $value->id; ?></td>
-                                <td><?php echo $value->soal; ?></td>
+                                <td><?php echo $value->materi; ?></td>
                                 <td class="center">
-                                    <a class="btn btn-warning btn-xs" href="<?php echo site_url('admin/soal/edit').'?id='.hash_id($value->id); ?>">
+                                    <a class="btn btn-warning btn-xs" href="<?php echo site_url('admin/learning/edit').'?id='.hash_id($value->id); ?>">
                                         <i class="fa fa-pencil"></i> Edit
                                     </a>
-                                    <a class="btn btn-danger btn-xs" href="<?php echo site_url('admin/soal/delete').'?id='.hash_id($value->id); ?>">
+                                    <a class="btn btn-danger btn-xs" href="<?php echo site_url('admin/learning/delete').'?id='.hash_id($value->id); ?>">
                                         <i class="fa fa-trash-o"></i> Hapus
                                     </a>
                                 </td>

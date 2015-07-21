@@ -10,6 +10,9 @@ class Render extends CI_Model {
 		if(!isset($data['use_table'])) {
 			$data['use_table'] = false;
 		}
+		if(!isset($data['use_editor'])) {
+			$data['use_editor'] = false;
+		}
 		$this->load->view($this->session->userdata('user_type').'/header', $data);
 		$this->load->view($this->session->userdata('user_type').'/'.$view);
 		$this->load->view($this->session->userdata('user_type').'/footer');

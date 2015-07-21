@@ -216,7 +216,7 @@ class Admin extends CI_Controller {
 			
 			default:
 				$data['get_siswa'] = $this->m_users->get_users();
-				$data['use_table'] 			= true;
+				$data['use_table'] = true;
 
 				$this->render->view('siswa', $data);
 				break;
@@ -520,4 +520,108 @@ class Admin extends CI_Controller {
 		redirect(base_url('admin/soal/mapel.html').'?id_mapel='.hash_id($get_soal[0]->id_mapel));
 	}
 	// End function Seri
+
+	// Start Learning Function
+	public function learning($action = '', $id = '') {
+		switch ($action) {
+			case 'mapel':
+				$this->_learning_by_mapel();
+				break;
+
+			case 'add':
+				$this->_learning_add();
+				break;
+
+			case 'edit':
+				if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+					$this->_learning_update();
+				} else {
+					$id 				  = $this->input->get('id');
+					$data['id']		   	  = $id;
+					$data['get_learning'] = $this->m_learning->get_learning_by_id($id);
+					if ($data['get_learning'] == false) {
+						$message['message'] 	 = 'ID tidak ditemukan! Silahkan coba kembali.';
+						$message['message_type'] = 'warning';
+						$this->session->set_flashdata($message);
+						redirect('admin/learning');
+					} else {
+						$data['use_editor'] = true;
+						$this->render->view('learning_edit', $data);
+					}
+				}
+				
+				break;
+
+			case 'delete':
+				$this->_learning_delete();
+				break;
+			
+			default:
+				$data['get_mata_pelajaran'] = $this->m_mata_pelajaran->get_mata_pelajaran();
+				$data['use_table'] 			= true;
+
+				$this->render->view('learning_pilih_mapel', $data);
+				break;
+		}
+	}
+
+	private function _learning_by_mapel () {
+		$data['id_mapel'] 	  = $this->input->get('id_mapel');
+		$data['get_learning'] = $this->m_learning->get_learning_by_id_mapel($data['id_mapel']);
+		$this->render->view('learning', $data);
+	}
+
+	private function _learning_add () {
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$data['materi'] = $this->input->post('materi');
+			$data['isi'] 	= $this->input->post('isi');
+			$data['id_mapel'] = $this->input->post('id_mapel');
+
+			$this->m_learning->insert_learning($data);
+
+			$message['message'] 	 = 'Sukses menambah Materi Learning';
+			$message['message_type'] = 'success';
+			$this->session->set_flashdata($message);
+
+			redirect(base_url('admin/learning/mapel.html').'?id_mapel='.hash_id($data['id_mapel']));
+		} else {
+			$data['id_mapel'] 	  = $this->input->get('id_mapel');
+			$data['get_learning'] = $this->m_learning->get_learning_by_id_mapel($data['id_mapel']);
+			$data['use_editor']   = true;
+			$this->render->view('learning_add', $data);
+		}
+	}
+
+	private function _learning_update () {
+		$id 		   	= $this->input->post('id');
+		$data['materi'] = $this->input->post('materi');
+		$data['isi'] 	= $this->input->post('isi');
+		$data['id_mapel'] = $this->input->post('id_mapel');
+		$this->m_learning->update_learning($id, $data);
+
+		$message['message'] 	 = 'Sukses update data learning (ID : '.dehash_id($id).')';
+		$message['message_type'] = 'success';
+		$this->session->set_flashdata($message);
+
+		redirect(base_url('admin/learning/mapel.html').'?id_mapel='.hash_id($data['id_mapel']));
+	}
+
+	private function _learning_delete () {
+		$id = $this->input->get('id');
+		$get_learning = $this->m_learning->get_learning_by_id($id);
+		$this->m_learning->delete_learning($id);
+
+		if ($get_learning == true) {
+			$message['message'] 	 = 'Sukses menghapus data Learning (ID : '.dehash_id($id).')'.$respon;
+			$message['message_type'] = 'success';
+			$this->session->set_flashdata($message);
+		} else {
+			$message['message'] 	 = 'ID tidak ditemukan! Silahkan coba kembali.';
+			$message['message_type'] = 'warning';
+			$this->session->set_flashdata($message);
+		}
+
+		redirect(base_url('admin/learning/mapel.html').'?id_mapel='.hash_id($get_learning->id_mapel));
+	}
+	// End Mapel Function
 }

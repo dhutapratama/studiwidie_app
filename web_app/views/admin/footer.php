@@ -21,16 +21,6 @@
 
         <script src="<?php echo base_url(); ?>assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-
-
-        <script>
-        $(document).ready(function(){
-
-
-        });
-        </script>
-
-
         <?php if ($use_table == true) { ?>
         <script src="<?php echo base_url(); ?>assets/js/plugins/jeditable/jquery.jeditable.js"></script>
 
@@ -48,6 +38,16 @@
                 });
             });
         </script>
+    <?php }
+        if ($use_editor == true) { ?>
+     <!-- SUMMERNOTE -->
+    <script src="<?php echo base_url(); ?>assets/js/plugins/summernote/summernote.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.summernote').summernote();
+       });
+    </script>
     <?php } ?>
     </body>
 </html>

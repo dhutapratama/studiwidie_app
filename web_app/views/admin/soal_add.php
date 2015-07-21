@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Tambah Soal</h5>
+                    <h5>TAMBAH SOAL</h5>
                 </div>
                 <div class="ibox-content">
                     <form method="post" class="form-horizontal" action="<?php echo site_url('admin/soal/add'); ?>">
