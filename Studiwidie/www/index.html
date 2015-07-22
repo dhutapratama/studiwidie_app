@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Studiwidie Apps</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
+    <style>
+        @-ms-viewport { width: 100vw ; min-zoom: 100% ; zoom: 100% ; }  @viewport { width: 100vw ; min-zoom: 100% zoom: 100% ; }
+        @-ms-viewport { user-zoom: fixed ; min-zoom: 100% ; }           @viewport { user-zoom: fixed ; min-zoom: 100% ; }
+    </style>
+
+    <!-- <script src="cordova.js"></script> -->          <!-- phantom library, needed for Cordova api calls, added during build -->
+    <!-- <script src="xdk/init-dev.js"></script> -->     <!-- normalizes device and document ready events, see README for details -->
+	
+	<!-- JQuery Mobile -->
+	
+	<link rel='stylesheet' href='jqm/jquery.mobile.custom.structure.min.css' type='text/css' media='all' />
+	<link rel='stylesheet' href='jqm/jquery.mobile.custom.theme.min.css' type='text/css' media='all' />
+</head>
+
+<body>
+
+<div data-role="page" id="main-page" data-theme="b">
+    <div data-role="header">
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content" data-position="fixed" id="content-stick-bottom">
+        <div id="content-stick-bottom"></div>
+        <div class="judul">
+            <h1>Studiwidie</h1>
+        </div>
+        <div class="materi">
+            <p>Aplikasi tryout online untuk pelajar sma Indonesia. Dapatkan akun studiwidie Gratis!</p>
+        </div>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+    </div><!-- /footer -->
+</div><!-- /page -->
+
+<div data-role="page" id="notloggedin-page" data-theme="b">
+
+    <div data-role="header">
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content" id="content-stick-bottom">
+        <div class="judul">
+            <h1>Studiwidie</h1>
+        </div>
+        <div class="materi">
+            <p>Aplikasi tryout online untuk pelajar sma Indonesia. Dapatkan akun studiwidie Gratis!</p>
+        </div>
+        <p>
+            <a class="ui-btn" href="#login-panel">Login</a>
+            <a class="ui-btn" href="#signup-panel">Daftar</a>
+        </p>
+        
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+    </div><!-- /footer -->
+
+    <div data-role="panel" id="login-panel" data-display="overlay">
+        <h3>Login</h3>
+        <input data-clear-btn="true" id="login-username" value="" type="text" placeholder="Username">
+        <input data-clear-btn="true" id="login-password" value="" type="password" placeholder="Password">
+        <button class="ui-shadow ui-btn ui-corner-all">Login</button>
+    </div><!-- /panel -->
+
+    <div data-role="panel" id="signup-panel" data-position="right" data-display="overlay">
+        <h3>Pendaftaran</h3>
+        <input data-clear-btn="true" id="daftar-nama" value="" type="text" placeholder="Nama Lengkap">
+        <input data-clear-btn="true" id="daftar-email" value="" type="text" placeholder="Email">
+        <input data-clear-btn="true" id="daftar-username" value="" type="text" placeholder="Username">
+        <input data-clear-btn="true" id="daftar-password" value="" type="password" placeholder="Password">
+        <button class="ui-shadow ui-btn ui-corner-all">Daftarkan</button>
+    </div><!-- /panel -->
+</div><!-- /page -->
+
+
+<div data-role="page" id="main-pages" data-theme="b">
+
+    <div data-role="header">
+        <h1>LOGIN</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><button class="ui-btn">Signup</button></div>
+            <div class="ui-block-b">
+                <label for="text-basic">Username:</label>
+                <input name="text-basic" id="text-basic" value="" type="text">
+                <label for="text-basic">Password:</label>
+                <input name="text-basic" id="text-basic" value="" type="password">
+                <button class="ui-btn">Login</button>
+            </div>
+        </div><!-- /grid-b -->
+        
+        <p><a href="#page-b">To Page B</a></p>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+</div><!-- /page -->
+
+<div data-role="page" id="page-b">
+
+    <div data-role="header">
+        <h1>Studiwidie - Page 1</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <p>Page content goes here. <a href="#main-page">To Main Page</a></p>
+        <p><a href="#main-page" class="ui-shadow ui-btn ui-corner-all ui-btn-inline" data-transition="pop">Open Login</a> </p>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+    
+</div><!-- /page -->
+
+</body>
+<script src="jqm/jquery.js"></script>
+<script src="jqm/jquery.mobile.custom.min.js"></script>
+<script src="js/app.js"></script>
+</html>
