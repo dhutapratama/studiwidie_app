@@ -99,18 +99,25 @@ class M_soal extends CI_Model{
 		return $database;
 	}
 
-	public function get_jumlah_soal_by_seri ($no_seri = 0) {
+	public function get_jumlah_soal_by_seri ($data = array('id_mapel' => '', 'no_seri' => '')) {
+		$id_mapel = $data['id_mapel'];
+		$no_seri  = $data['no_seri'];
+
 		$database = $this->db->select('*')
 					->from('soal')
 					->where('no_seri', $no_seri)
+					->where('id_mapel', $id_mapel)
 					->get()->num_rows();
 		return $database;
 	}
 
-	public function get_soal_by_seri ($encrypted_id = 0) {
-		$no_seri  = $this->encrypt->decode($encrypted_id);
+	public function get_soal_by_seri ($data = array('id_mapel' => '', 'no_seri' => '')) {
+		$id_mapel = $data['id_mapel'];
+		$no_seri  = $data['no_seri'];
+
 		$database = $this->db->select('*')
 					->from('soal')
+					->where('id_mapel', $id_mapel)
 					->where('no_seri', $no_seri)
 					->get();
 
@@ -118,7 +125,7 @@ class M_soal extends CI_Model{
 			$database = $database->result();
 			return $database;
 		} else {
-			return false;
+			return array();
 		}
 	}
 

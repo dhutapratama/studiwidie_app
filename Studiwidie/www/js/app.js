@@ -6,11 +6,13 @@ var post_url = '';
 var id_mapel = '';
 var ujian_mapel = '';
 var ujian_seri = '';
+var ujian_nomor = 0;
+var jumlah_soal = 0;
 //var api_url = 'http://api.studiwidie.com'; // Production
 var api_url = 'http://api.studiwidie.app'; // Development
 
 $( document ).on( "mobileinit", function() {
-    console.log("Studiwidie initialization is started");
+    console.log("Studiwidie initialization is started.");
     $.mobile.loader.prototype.options.text = "Menghubungkan Jaringan...";
     $.mobile.loader.prototype.options.textVisible = true;
     $.mobile.loader.prototype.options.theme = "b";
@@ -23,7 +25,7 @@ $( document ).on( "mobileinit", function() {
     });
 
     initialization();
-    console.log("Studiwidie initialization is ended");
+    console.log("Studiwidie initialization is ended.");
 });
 
 function initialization() {
@@ -31,7 +33,7 @@ function initialization() {
 	username = window.localStorage["username"];
 	password = window.localStorage["password"];
 
-	console.log("Login check with saved username & password in the localStorage");
+	console.log("Login check with saved username & password in the localStorage.");
 
 	$.ajax({ type: 'POST', url: api_url + post_url, data: 
         {
@@ -89,6 +91,8 @@ function set_nama( nama ) {
     $( '#belajar_materi-nama' ).html( nama );
     $( '#materi-nama' ).html( nama );
     $( '#ujian-nama' ).html( nama );
+    $( '#start_ujian-nama' ).html( nama );
+    $( '#progress-nama' ).html( nama );
 }
 
 function reset_all_input () {
@@ -447,6 +451,9 @@ $( document ).on( "vclick", "#open-ujian", function() {
                     $('#ujian-notif').html("Semua soal ujian " + obj.data.mapel + " telah diselesaikan. Untuk saat ini pilihlah mata pelajaran yang lainnya.");
                     $('#ujian-popup').popup('open');
                 } else {
+                    ujian_mapel = id_mapel;
+                    ujian_seri  = obj.data.seri;
+
                     location.hash = 'page-start_ujian';
                     $( '#start_ujian-seri' ).html( obj.data.seri);
                     $( '#start_ujian-mapel' ).html( obj.data.mapel);
@@ -467,5 +474,116 @@ $( document ).on( "vclick", "#open-ujian", function() {
     });
 });
 
+$( document ).on( "vclick", "#go_ujian", function() {
+    $.mobile.loading( "show" );
 
+    post_url = "/siswa/init_ujian";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "init_ujian",
+            id_mapel: ujian_mapel,
+            no_seri: ujian_seri,
+            nomor_soal: ujian_nomor
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                console.log("Menginisialisasi ujian dengan seri " + ujian_seri + '.');
+                location.hash = 'page-progress';
+
+                jumlah_soal = obj.data.jumlah_soal;
+                $('#progress-soal').html(obj.data.soal);
+                $('#ans-a').html("A. " + obj.data.jawaban_a);
+                $('#ans-b').html("B. " + obj.data.jawaban_b);
+                $('#ans-c').html("C. " + obj.data.jawaban_c);
+                $('#ans-d').html("D. " + obj.data.jawaban_d);
+                $('#ans-e').html("E. " + obj.data.jawaban_e);
+                $('#ujian-back').prop('disabled', true);
+                $('#ujian-hint').prop('disabled', false);
+                $('#ujian-next').prop('disabled', false);
+
+            } else {
+                $.mobile.loading( "hide" );
+
+                $('#ujian-notif').html("Anda harus melakukan login untuk mengakses halaman ini.");
+                $('#ujian-popup').popup('open');
+
+                console.log("Wajib login untuk mengakses halaman ini.");
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+});
+
+$( document ).on( "vclick", "#ujian-next", function() {
+    ujian_nomor++;
+
+    if (ujian_nomor == jumlah_soal) {
+        location.hash = "page-finish_ujian";
+    } else {
+        get_soal();
+    }
+    
+});
+
+function get_soal() {
+    $.mobile.loading( "show" );
+
+    post_url = "/siswa/update_ujian";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "update_ujian",
+            id_mapel: ujian_mapel,
+            no_seri: ujian_seri,
+            nomor_soal: ujian_nomor
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                console.log("Menginisialisasi ujian dengan seri " + ujian_seri + '.');
+                location.hash = 'page-progress';
+
+                jumlah_soal = obj.data.jumlah_soal;
+                $('#progress-soal').html(obj.data.soal);
+                $('#ans-a').html("A. " + obj.data.jawaban_a);
+                $('#ans-b').html("B. " + obj.data.jawaban_b);
+                $('#ans-c').html("C. " + obj.data.jawaban_c);
+                $('#ans-d').html("D. " + obj.data.jawaban_d);
+                $('#ans-e').html("E. " + obj.data.jawaban_e);
+                $('#ujian-back').prop('disabled', true);
+                $('#ujian-hint').prop('disabled', false);
+                $('#ujian-next').prop('disabled', false);
+
+            } else {
+                $.mobile.loading( "hide" );
+
+                $('#ujian-notif').html("Anda harus melakukan login untuk mengakses halaman ini.");
+                $('#ujian-popup').popup('open');
+
+                console.log("Wajib login untuk mengakses halaman ini.");
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+}
 // --------------------------------- End ujian Page ---------------------------------

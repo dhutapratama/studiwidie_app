@@ -236,7 +236,7 @@
 
     <div data-role="header">
         <a class="ui-shadow ui-btn ui-corner-all" href="#ujian-menu">Menu</a>
-        <h1>Ujian</h1>
+        <h1>Tryout</h1>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
@@ -268,7 +268,7 @@
 
     <div data-role="header">
         <a class="ui-shadow ui-btn ui-corner-all" href="#start_ujian-menu">Menu</a>
-        <h1>Ujian</h1>
+        <h1>Mulai Tryout</h1>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
@@ -310,9 +310,92 @@
     </div><!-- /notification -->
 </div><!-- /page -->
 
+<div data-role="page" id="page-progress">
 
+    <div data-role="header">
+        <h1>Tryout <i id="header-mapel"></i></h1>
+    </div><!-- /header -->
 
+    <div role="main" class="ui-content">
+        <table border="1" width="100%" cellspacing="0">
+            <tr align="center">
+                <td id="progress-nomor">No. 1</td>
+                <td id="progress-mapel">Mapel</td>
+                <td id="progress-waktu">Waktu</td>
+            </tr>
+        </table>
 
+        <p id="progress-soal"></p>
+
+        <input name="jawaban" id="jawaban-a" value="a" type="radio">
+        <label for="jawaban-a" id="ans-a">A. </label>
+        <input name="jawaban" id="jawaban-b" value="b" type="radio">
+        <label for="jawaban-b" id="ans-b">B. </label>
+        <input name="jawaban" id="jawaban-c" value="c" type="radio">
+        <label for="jawaban-c" id="ans-c">C. </label>
+        <input name="jawaban" id="jawaban-d" value="d" type="radio">
+        <label for="jawaban-d" id="ans-d">D. </label>
+        <input name="jawaban" id="jawaban-e" value="e" type="radio">
+        <label for="jawaban-e" id="ans-e">E. </label>
+
+        <div class="ui-grid-b">
+            <div class="ui-block-a"><button disabled="false" id="ujian-back" class="ui-btn ui-btn-b ui-icon-arrow-l ui-btn-icon-left">Kembali</button></div>
+            <div class="ui-block-b"><button disabled="false" id="ujian-hint" class="ui-btn ui-btn-b">Bantuan : 3</button></div>
+            <div class="ui-block-c"><button disabled="false" id="ujian-next" class="ui-btn ui-btn-b ui-icon-arrow-r ui-btn-icon-right">Lanjut</button></div>
+        </div>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div id="progress-popup" data-role="popup" data-theme='b'>
+        <p id="progress-notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
+
+<div data-role="page" id="page-finish_ujian">
+
+    <div data-role="header">
+        <a class="ui-shadow ui-btn ui-corner-all" href="#start_ujian-menu">Menu</a>
+        <h1>Akhiri Tryout</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <p id="finish-keterangan" data-inset="true">
+            Soal tryout sudah habis, tekan tombol kembali untuk mengecek jawaban atau tekan tombol selesai untuk mengakhiri tryout.
+        </p>
+        <table>
+            <tr>
+                <td>Mata Pelajaran :</td>
+                <td id="finish-mapel"></td>
+            </tr>
+            <tr>
+                <td>Nomor Seri :</td>
+                <td id="finish-seri"></td>
+            </tr>
+        </table>
+        <button class="ui-shadow ui-btn ui-corner-all" id="stop_ujian">Selesai!</button>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#page-result" data-theme="b">Kembali</a>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div data-role="panel" id="finish-menu" data-display="overlay">
+        <ul data-role="listview">
+            <li id="finish-nama">Menu</li>
+            <li><a href="#">Ubah Profil</a></li>
+            <li><a href="#">About</a></li>
+            <li><a id="logout">Logout</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    <div id="finish-popup" data-role="popup" data-theme='b'>
+        <p id="finish-notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
 
 
 
