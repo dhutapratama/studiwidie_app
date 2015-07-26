@@ -26,7 +26,7 @@
                 <div class="ibox-title">
                     <h5>Materi Learning</h5>
                     <div class="ibox-tools">
-                        <a class="btn btn-primary btn-xs" href="<?php echo site_url('admin/learning/add').'?id_mapel='.hash_id($get_learning[0]->id_mapel); ?>">
+                        <a class="btn btn-primary btn-xs" href="<?php echo site_url('admin/learning/add').'?id_mapel='.urlencode($id_mapel); ?>">
                             <i class="fa fa-plus"></i> Add
                         </a>
                     </div>

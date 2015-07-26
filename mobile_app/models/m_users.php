@@ -49,7 +49,11 @@ class M_users extends CI_Model{
 		}
 
 		$database = $this->db->insert('users', $data);
-		return $database;
+
+		$message['message'] 	 = 'Pendaftaran sukses';
+		$message['message_type'] = 'success';
+
+		return $message;
 	}
 
 	// Update data to table
@@ -99,12 +103,24 @@ class M_users extends CI_Model{
 			$data['user_id'] 	= $this->encrypt->encode($database[0]->id);
 			$data['user_type'] 	= 'siswa';
 			$data['nama'] 		= $database[0]->nama;
+			$data['logged_in']  = true;
 
 			$this->session->set_userdata($data);
+
+			$message['message'] 	 = 'Login berhasil';
+			$message['message_type'] = 'success';
 		} else {
-			$message['message'] 	 = 'Pastikan username / password anda benar!';
+			$data['user_id'] 	= "";
+			$data['user_type'] 	= "guess";
+			$data['nama'] 		= "";
+			$data['logged_in']  = false;
+
+			$this->session->set_userdata($data);
+			
+			$message['message'] 	 = 'Username / Password anda salah!';
 			$message['message_type'] = 'warning';
-			$this->session->set_flashdata($message);
 		}
+
+		return $message;
 	}
 }

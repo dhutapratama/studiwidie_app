@@ -72,6 +72,10 @@ class M_learning extends CI_Model{
 	// Get Learning by id mata pelajaran
 	public function get_learning_by_id_mapel ($encrypted_id = '') {
 		$id_mapel = $this->encrypt->decode($encrypted_id);
+		if ($id_mapel == '') {
+			$id_mapel = $this->encrypt->decode(urldecode($encrypted_id));
+		}
+
 		$database = $this->db->select('*')
 					->from('learning')
 					->where('id_mapel', $id_mapel)

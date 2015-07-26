@@ -572,7 +572,9 @@ class Admin extends CI_Controller {
 
 	private function _learning_by_mapel () {
 		$data['id_mapel'] 	  = $this->input->get('id_mapel');
+
 		$data['get_learning'] = $this->m_learning->get_learning_by_id_mapel($data['id_mapel']);
+		//print_r($data);exit();
 		$this->render->view('learning', $data);
 	}
 
@@ -580,7 +582,7 @@ class Admin extends CI_Controller {
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$data['materi'] = $this->input->post('materi');
 			$data['isi'] 	= $this->input->post('isi');
-			$data['id_mapel'] = $this->input->post('id_mapel');
+			$data['id_mapel'] = $this->encrypt->decode($this->input->post('id_mapel'));
 
 			$this->m_learning->insert_learning($data);
 
@@ -593,6 +595,7 @@ class Admin extends CI_Controller {
 			$data['id_mapel'] 	  = $this->input->get('id_mapel');
 			$data['get_learning'] = $this->m_learning->get_learning_by_id_mapel($data['id_mapel']);
 			$data['use_editor']   = true;
+			//print_r( $data); exit();
 			$this->render->view('learning_add', $data);
 		}
 	}

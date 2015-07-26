@@ -6,5 +6,6 @@ $autoload['helper'] 	= array('url');
 $autoload['config'] 	= array();
 $autoload['language'] 	= array();
 $autoload['model'] 		= array(
-							'initial'
+							'initial',
+							'm_users'
 						);

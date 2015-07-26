@@ -11,7 +11,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Mata Pelajaran</label>
                             <div class="col-sm-10">
-                                <input type="hidden" name="id_mapel" value="<?php echo $get_learning[0]->id_mapel; ?>">
+                                <input type="hidden" name="id_mapel" value="<?php echo $id_mapel; ?>">
                                 <input type="text" class="form-control" value="<?php echo $this->m_mata_pelajaran->get_mata_pelajaran_by_id($id_mapel)->mapel; ?>" disabled>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
-                                <a class="btn btn-white" href="<?php echo base_url('admin/learning/mapel.html?id_mapel='.hash_id($get_learning[0]->id_mapel)); ?>">Batal</a>
+                                <a class="btn btn-white" href="<?php echo base_url('admin/learning/mapel.html?id_mapel='.$id_mapel); ?>">Batal</a>
                                 <button class="btn btn-primary" type="submit">Simpan</button>
                             </div>
                         </div>

@@ -4,6 +4,9 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$output['message'] = "please download the apps";
+
+		$data['data'] = $output;
+		$this->load->view('parse_json', $data);
 	}
 }
