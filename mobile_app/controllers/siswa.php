@@ -12,8 +12,6 @@ class Siswa extends CI_Controller {
 
 	public function get_mapel() {
 
-		echo $this->session->userdata('logged_in');
-
 		$output['time']  		= time();
 		$output['user_id'] 		= $this->session->userdata('user_id');
 		$output['user_type'] 	= $this->session->userdata('user_type');

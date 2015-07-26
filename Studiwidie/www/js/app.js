@@ -35,6 +35,8 @@ function initialization() {
             username: username, 
             password: password,
         },
+
+        xhrFields: { withCredentials: true },
         
         success: function(data, textStatus ){
             
@@ -144,6 +146,8 @@ $( document ).on( "vclick", "#login-button", function() {
             username: username, 
             password: password,
         },
+
+        xhrFields: { withCredentials: true },
         
         success: function(data, textStatus ){
             $.mobile.loading( "hide" );
@@ -197,6 +201,8 @@ $( document ).on( "vclick", "#register-button", function() {
             password: password,
             passconf: passconf,
         },
+
+        xhrFields: { withCredentials: true },
         
         success: function(data, textStatus ){
             $.mobile.loading( "hide" );
@@ -249,6 +255,8 @@ $( document ).on( "pagecreate", "#belajar-page", function() {
         {
             request: "mata_pelajaran"
         },
+
+        xhrFields: { withCredentials: true },
         
         success: function(data, textStatus ){
             $.mobile.loading( "hide" );
