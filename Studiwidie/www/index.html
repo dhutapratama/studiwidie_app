@@ -104,14 +104,14 @@
                 </a>
             </li>
             <li>
-                <a href="#ujian-page">
+                <a href="#page-ujian">
                     <img src="menu_icon/checkmark.png">
                     <h2>Try Out</h2>
                     <p>Simulasi Ujian Nasional</p>
                 </a>
             </li>
             <li>
-                <a href="#histori-page">
+                <a href="#page-history">
                     <img src="menu_icon/calendar.png">
                     <h2>History</h2>
                     <p>Mereview Try Out Sebelumnya</p>
@@ -142,12 +142,12 @@
 
     <div data-role="header">
         <a class="ui-shadow ui-btn ui-corner-all" id="open_menu-button" href="#user_menu-belajar-panel">Menu</a>
-        <h1>Studiwidie</h1>
+        <h1>Learning</h1>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
-
-        <ul data-role="listview" id="mapel-belajar">
+        <p data-inset="true"><h4>Pilih mata pelajaran :</h4></p>
+        <ul data-role="listview" id="mapel-belajar" data-inset="true">
             <li>Sedang mengambil data ...</li>
         </ul>
     </div><!-- /content -->
@@ -169,6 +169,194 @@
         <p id="belajar-notif">Notification</p>
     </div><!-- /notification -->
 </div><!-- /page -->
+
+<div data-role="page" id="belajar_materi-page">
+
+    <div data-role="header">
+        <a class="ui-shadow ui-btn ui-corner-all" id="open_menu-button" href="#user_menu-belajar_materi-panel">Menu</a>
+        <h1>Learning</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+
+        <ul data-role="listview" id="mapel-belajar_materi">
+            <li>Sedang mengambil data ...</li>
+        </ul>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div data-role="panel" id="user_menu-belajar_materi-panel" data-display="overlay">
+        <ul data-role="listview">
+            <li id="belajar_materi-nama">Menu</li>
+            <li><a href="#">Ubah Profil</a></li>
+            <li><a href="#">About</a></li>
+            <li><a id="logout">Logout</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    <div id="belajar_materi-popup" data-role="popup" data-theme='b'>
+        <p id="belajar_materi-notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
+
+<div data-role="page" id="materi-page">
+
+    <div data-role="header">
+        <a class="ui-shadow ui-btn ui-corner-all" id="open_menu-button" href="#user_menu-materi-panel">Menu</a>
+        <h1>Materi Learning</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+
+        <p id="materi-isi">Sedang mengambil is materi ...</p>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div data-role="panel" id="user_menu-materi-panel" data-display="overlay">
+        <ul data-role="listview">
+            <li id="materi-nama">Menu</li>
+            <li><a href="#">Ubah Profil</a></li>
+            <li><a href="#">About</a></li>
+            <li><a id="logout">Logout</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    <div id="materi-popup" data-role="popup" data-theme='b'>
+        <p id="materi-notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
+
+<div data-role="page" id="page-ujian">
+
+    <div data-role="header">
+        <a class="ui-shadow ui-btn ui-corner-all" href="#ujian-menu">Menu</a>
+        <h1>Ujian</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <p data-inset="true"><h4>Pilih mata pelajaran :</h4></p>
+        <ul data-role="listview" id="ujian-mapel" data-inset="true">
+            <li>Sedang mengambil data ...</li>
+        </ul>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div data-role="panel" id="ujian-menu" data-display="overlay">
+        <ul data-role="listview">
+            <li id="ujian-nama">Menu</li>
+            <li><a href="#">Ubah Profil</a></li>
+            <li><a href="#">About</a></li>
+            <li><a id="logout">Logout</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    <div id="ujian-popup" data-role="popup" data-theme='b'>
+        <p id="ujian-notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
+
+<div data-role="page" id="page-start_ujian">
+
+    <div data-role="header">
+        <a class="ui-shadow ui-btn ui-corner-all" href="#start_ujian-menu">Menu</a>
+        <h1>Ujian</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <p id="start_ujian-keterangan" data-inset="true">
+            Anda akan melakukan tryout online, apabila anda secara sengaja atau tidak sengaja
+            keluar dari aplikasi studiwidie, anda akan dianggap telah selesai melaksanakan tryout online.
+        </p>
+        <p>
+            <table>
+                <tr>
+                    <td>Mata Pelajaran :</td>
+                    <td id="start_ujian-mapel"></td>
+                </tr>
+                <tr>
+                    <td>Nomor Seri :</td>
+                    <td id="start_ujian-seri"></td>
+                </tr>
+            </table>
+        </p>
+        <button class="ui-shadow ui-btn ui-corner-all" id="go_ujian">OK, Mulai Ujian!</button>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#page-ujian" data-theme="b">Kembali</a>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div data-role="panel" id="start_ujian-menu" data-display="overlay">
+        <ul data-role="listview">
+            <li id="start_ujian-nama">Menu</li>
+            <li><a href="#">Ubah Profil</a></li>
+            <li><a href="#">About</a></li>
+            <li><a id="logout">Logout</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    <div id="start_ujian-popup" data-role="popup" data-theme='b'>
+        <p id="start_ujian-notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div data-role="page" id="page-history">
+
+    <div data-role="header">
+        <a class="ui-shadow ui-btn ui-corner-all" id="menu-button">Menu</a>
+        <h1>History</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+
+        <ul data-role="listview" id="mapel-belajar">
+            <li>Sedang mengambil data ...</li>
+        </ul>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div data-role="panel" id="menu-panel" data-display="overlay">
+        <ul data-role="listview">
+            <li id="ujian-nama">Menu</li>
+            <li><a href="#">Ubah Profil</a></li>
+            <li><a href="#">About</a></li>
+            <li><a id="logout">Logout</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    <div id="popup" data-role="popup" data-theme='b'>
+        <p id="notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
+
+
+
+
 
 <!-- Notification -->
 <div data-role="page" id="network-error" data-dialog="true" data-theme="a">

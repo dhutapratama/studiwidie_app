@@ -78,4 +78,31 @@ class M_log_tryout extends CI_Model{
 	// Custom Function
 	// ------------------------------
 
+	public function get_seri_tryout ($data = array('id_user' => '', 'id_mapel' => '')) {
+		/*
+			jika return = false maka tryout belum dilaksanakan.
+		*/
+		$id_user  = $data['id_user'];
+		$id_mapel = $data['id_mapel'];
+		$no_seri = false;
+
+		$get_soal = $this->m_soal->get_soal_seri($id_mapel);
+
+		foreach ($get_soal as $key => $value) {
+			$database = $this->db->select('*')
+					->from('log_tryout')
+					->where('id_user', $id_user)
+					->where('no_seri', $value->no_seri)
+					->where('id_mapel', $id_mapel)
+					->get();
+			if ($database->num_rows() > 0) {
+				$no_seri = false;	
+			} else {
+				$no_seri = $value->no_seri;
+				break;
+			}
+		}
+		
+		return $no_seri;
+	}
 }

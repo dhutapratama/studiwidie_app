@@ -2,7 +2,10 @@
 var username = '';
 var password = '';
 var logged_in = window.localStorage["logged_in"];
-var post_url = "";
+var post_url = '';
+var id_mapel = '';
+var ujian_mapel = '';
+var ujian_seri = '';
 //var api_url = 'http://api.studiwidie.com'; // Production
 var api_url = 'http://api.studiwidie.app'; // Development
 
@@ -83,6 +86,9 @@ function network_error() {
 function set_nama( nama ) {
     $( '#home-nama' ).html( nama );
     $( '#belajar-nama' ).html( nama );
+    $( '#belajar_materi-nama' ).html( nama );
+    $( '#materi-nama' ).html( nama );
+    $( '#ujian-nama' ).html( nama );
 }
 
 function reset_all_input () {
@@ -265,8 +271,8 @@ $( document ).on( "pagecreate", "#belajar-page", function() {
 
             if(obj.logged_in == true) {
                 console.log("Mengambil data mata pelajaran.");
-
-                $('#mapel-belajar').html( obj.data.get_mapel );
+                $( '#mapel-belajar' ).html( obj.data.get_mapel );
+                $( '#mapel-belajar' ).listview( "refresh" );
                 
             } else {
                 $.mobile.loading( "hide" );
@@ -284,4 +290,182 @@ $( document ).on( "pagecreate", "#belajar-page", function() {
     });
 });
 
+$( document ).on( "vclick", "#open-learning", function() {
+    $.mobile.loading( "show" );
+
+    id_mapel = $( this ).data('id_mapel');
+
+    post_url = "/siswa/get_learning";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "materi_learning",
+            id_mapel: id_mapel
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                console.log("Mengambil data learning > id_mapel = " + id_mapel + '.');
+
+                location.hash = 'belajar_materi-page';
+
+                $( '#mapel-belajar_materi' ).html( obj.data.get_learning);
+               //$( '#mapel-belajar_materi' ).listview( "refresh" );
+                
+            } else {
+                $.mobile.loading( "hide" );
+
+                $('#belajar_materi-notif').html("Anda harus melakukan login untuk mengakses halaman ini.");
+                $('#belajar_materi-popup').popup('open');
+
+                console.log("Wajib login untuk mengakses halaman ini.");
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+});
+
+$( document ).on( "vclick", "#open-materi", function() {
+    $.mobile.loading( "show" );
+
+    id = $( this ).data('id_materi');
+
+    post_url = "/siswa/get_materi";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "materi_learning",
+            id: id
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                console.log("Mengambil materi > id = " + id + '.');
+
+                location.hash = 'materi-page';
+
+                $( '#materi-isi' ).html( obj.data.get_materi);
+                
+            } else {
+                $.mobile.loading( "hide" );
+
+                $('#materi-notif').html("Anda harus melakukan login untuk mengakses halaman ini.");
+                $('#materi-popup').popup('open');
+
+                console.log("Wajib login untuk mengakses halaman ini.");
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+});
+
 // --------------------------------- End belajar Page ---------------------------------
+
+// --------------------------------- Start ujian Page ---------------------------------
+
+$( document ).on( "pagecreate", "#page-ujian", function() {
+
+    $.mobile.loading( "show" );
+
+    post_url = "/siswa/get_mapel_ujian";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "mata_pelajaran"
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                console.log("Mengambil data mata pelajaran.");
+                $( '#ujian-mapel' ).html( obj.data.get_mapel );
+                $( '#ujian-mapel' ).listview( "refresh" );
+                
+            } else {
+                $.mobile.loading( "hide" );
+
+                $('#ujian-notif').html("Anda harus melakukan login untuk mengakses halaman ini.");
+                $('#ujian-popup').popup('open');
+
+                console.log("Wajib login untuk mengakses halaman ini.");
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+});
+
+$( document ).on( "vclick", "#open-ujian", function() {
+    $.mobile.loading( "show" );
+
+    id_mapel = $( this ).data('id_mapel');
+
+    post_url = "/siswa/get_ujian";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "ujian",
+            id_mapel: id_mapel
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                console.log("Mengambil ujian > id_mapel = " + id_mapel + '.');
+
+                if (obj.data.seri == false) {
+                    $('#ujian-notif').html("Semua soal ujian " + obj.data.mapel + " telah diselesaikan. Untuk saat ini pilihlah mata pelajaran yang lainnya.");
+                    $('#ujian-popup').popup('open');
+                } else {
+                    location.hash = 'page-start_ujian';
+                    $( '#start_ujian-seri' ).html( obj.data.seri);
+                    $( '#start_ujian-mapel' ).html( obj.data.mapel);
+                }
+            } else {
+                $.mobile.loading( "hide" );
+
+                $('#ujian-notif').html("Anda harus melakukan login untuk mengakses halaman ini.");
+                $('#ujian-popup').popup('open');
+
+                console.log("Wajib login untuk mengakses halaman ini.");
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+});
+
+
+// --------------------------------- End ujian Page ---------------------------------

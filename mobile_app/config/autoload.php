@@ -8,5 +8,8 @@ $autoload['language'] 	= array();
 $autoload['model'] 		= array(
 							'initial',
 							'm_users',
-							'm_mata_pelajaran'
+							'm_mata_pelajaran',
+							'm_learning',
+							'm_log_tryout',
+							'm_soal'
 						);

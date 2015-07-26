@@ -89,8 +89,7 @@ class M_soal extends CI_Model{
 	// Custom Function
 	// ------------------------------
 
-	public function get_soal_seri ($encrypted_id) {
-		$id = $this->encrypt->decode($encrypted_id);
+	public function get_soal_seri ($id = '') {
 
 		$database = $this->db->select('*')
 					->from('soal')
