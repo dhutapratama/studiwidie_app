@@ -7,5 +7,6 @@ $autoload['config'] 	= array();
 $autoload['language'] 	= array();
 $autoload['model'] 		= array(
 							'initial',
-							'm_users'
+							'm_users',
+							'm_mata_pelajaran'
 						);

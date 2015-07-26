@@ -43,11 +43,18 @@ function initialization() {
 
             if(obj.logged_in == true) {
                 console.log("Login berhasil, username & password localStorage benar.");
+
                 set_nama(obj.nama);
-                location.hash = "home-page";
+
+                setTimeout(function (){
+                    location.hash = "home-page";
+                }, 2000);
             } else {
                 console.log("Login gagal, username & password di localStorage salah.");
-            	location.hash = "public-page";
+
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
             }
         },
         error: function(xhr, textStatus, errorThrown){
@@ -71,9 +78,57 @@ function network_error() {
     location.hash = "network-error";
 }
 
-function set_nama(nama) {
+function set_nama( nama ) {
     $( '#home-nama' ).html( nama );
+    $( '#belajar-nama' ).html( nama );
 }
+
+function reset_all_input () {
+    $( "#login-username" ).val('');
+    $( "#login-password" ).val('');
+}
+
+// Logout
+$( document ).on( "vclick", "#logout", function() {
+    $.mobile.loading( "show" );
+
+    post_url = "/login/logout";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "logout"
+        },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == false) {
+                console.log("Logout berhasil.");
+
+                $('#home-notif').html(obj.notification);
+                $('#home-popup').popup('open');
+
+                window.localStorage["username"] = '';
+                window.localStorage["password"] = '';
+
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
+                
+            } else {
+                $.mobile.loading( "hide" );
+
+                $('#home-notif').html(obj.notification);
+                $('#home-popup').popup('open');
+
+                console.log("Logout gagal, server mengalami masalah.");
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+});    
 
 // --------------------------------- Start Login Page ---------------------------------
 
@@ -105,6 +160,7 @@ $( document ).on( "vclick", "#login-button", function() {
                 window.localStorage["password"] = password;
 
                 set_nama(obj.nama);
+                reset_all_input();
 
                 setTimeout(function (){
                     location.hash = "home-page";
@@ -178,48 +234,46 @@ $( document ).on( "vclick", "#register-button", function() {
 // --------------------------------- Start Home Page ---------------------------------
 
 $( document ).on( "pagecreate", "#home-page", function() {
-
-    // Logout
-    $( document ).on( "vclick", "#logout", function() {
-        $.mobile.loading( "show" );
-
-        post_url = "/login/logout";
-
-        $.ajax({ type: 'POST', url: api_url + post_url, data: 
-            {
-                request: "logout"
-            },
-            
-            success: function(data, textStatus ){
-                $.mobile.loading( "hide" );
-                // JSON response
-                var obj = jQuery.parseJSON( data );
-
-                if(obj.logged_in == false) {
-                    console.log("Logout berhasil.");
-
-                    $('#home-notif').html(obj.notification);
-                    $('#home-popup').popup('open');
-
-                    window.localStorage["username"] = '';
-                    window.localStorage["password"] = '';
-
-                    setTimeout(function (){
-                        location.hash = "public-page";
-                    }, 2000);
-                    
-                } else {
-                    $.mobile.loading( "hide" );
-
-                    $('#home-notif').html(obj.notification);
-                    $('#home-popup').popup('open');
-
-                    console.log("Logout gagal, server mengalami masalah.");
-                }
-            },
-            error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
-        });
-    });    
 });
 
 // --------------------------------- End home Page ---------------------------------
+
+// --------------------------------- Start belajar Page ---------------------------------
+
+$( document ).on( "pagecreate", "#belajar-page", function() {
+    $.mobile.loading( "show" );
+
+    post_url = "/siswa/get_mapel";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "mata_pelajaran"
+        },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                console.log("Mengambil data mata pelajaran.");
+
+                $('#mapel-belajar').html( obj.data.get_mapel );
+                
+            } else {
+                $.mobile.loading( "hide" );
+
+                $('#belajar-notif').html("Anda harus melakukan login untuk mengakses halaman ini.");
+                $('#belajar-popup').popup('open');
+
+                console.log("Wajib login untuk mengakses halaman ini.");
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+});
+
+// --------------------------------- End belajar Page ---------------------------------

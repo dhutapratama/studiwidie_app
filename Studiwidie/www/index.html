@@ -126,7 +126,7 @@
 
     <div data-role="panel" id="user_menu-home-panel" data-display="overlay">
         <ul data-role="listview">
-            <li id="home-nama">Dhuta Pratama</li>
+            <li id="home-nama">Menu</li>
             <li><a href="#">Ubah Profil</a></li>
             <li><a href="#">About</a></li>
             <li><a id="logout">Logout</a></li>
@@ -138,13 +138,40 @@
     </div><!-- /notification -->
 </div><!-- /page -->
 
+<div data-role="page" id="belajar-page">
 
+    <div data-role="header">
+        <a class="ui-shadow ui-btn ui-corner-all" id="open_menu-button" href="#user_menu-belajar-panel">Menu</a>
+        <h1>Studiwidie</h1>
+    </div><!-- /header -->
 
+    <div role="main" class="ui-content">
 
+        <ul data-role="listview" id="mapel-belajar">
+            <li>Sedang mengambil data ...</li>
+        </ul>
+    </div><!-- /content -->
 
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div data-role="panel" id="user_menu-belajar-panel" data-display="overlay">
+        <ul data-role="listview">
+            <li id="belajar-nama">Menu</li>
+            <li><a href="#">Ubah Profil</a></li>
+            <li><a href="#">About</a></li>
+            <li><a id="logout">Logout</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    <div id="belajar-popup" data-role="popup" data-theme='b'>
+        <p id="belajar-notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
 
 <!-- Notification -->
-<div data-role="page" id="network-error" data-close-btn="right" data-dialog="true" data-theme="a">
+<div data-role="page" id="network-error" data-dialog="true" data-theme="a">
     <div data-role="header">
         <h1>Network Error!</h1>
     </div><!-- /header -->
