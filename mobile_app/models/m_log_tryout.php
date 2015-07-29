@@ -49,7 +49,7 @@ class M_log_tryout extends CI_Model{
 	}
 
 	// Update data to table
-	public function update_log_tryout ($encrypted_id = '', $data = array()) {
+	public function update_log_tryout ($id = '', $data = array()) {
 		/*
 			$data['id_user']	   = ;
 			$data['tanggal']	   = ;
@@ -60,7 +60,6 @@ class M_log_tryout extends CI_Model{
 			$data['jumlah_soal']   = ;
 		*/
 
-		$id = $this->encrypt->decode($encrypted_id);
 		$this->db->where('id', $id);
 		$database = $this->db->update('log_tryout', $data);
 		return $database;
@@ -84,7 +83,7 @@ class M_log_tryout extends CI_Model{
 		*/
 		$id_user  = $data['id_user'];
 		$id_mapel = $data['id_mapel'];
-		$no_seri = false;
+		$no_seri  = false;
 
 		$get_soal = $this->m_soal->get_soal_seri($id_mapel);
 
@@ -104,5 +103,26 @@ class M_log_tryout extends CI_Model{
 		}
 		
 		return $no_seri;
+	}
+
+	public function get_log_tryout_inprogress ($data = array('id_user' => '', 'id_mapel' => '', 'no_seri' => '')) {
+		$id_user  = $data['id_user'];
+		$id_mapel = $data['id_mapel'];
+		$no_seri  = $data['no_seri'];
+
+		$database = $this->db->select('*')
+				->from('log_tryout')
+				->where('id_user', $id_user)
+				->where('no_seri', $no_seri)
+				->where('id_mapel', $id_mapel)
+				->get();
+
+		if ($database->num_rows() > 0) {
+			$database = $database->result();
+		} else {
+			$database = false;
+		}
+
+		return $database[0];
 	}
 }
