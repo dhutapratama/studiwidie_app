@@ -11,8 +11,8 @@ var ujian_hint          = [];
 var ujian_hint_number   = 3;
 var ujian_nomor         = 0;
 var jumlah_soal         = 0;
-//var api_url = 'http://api.studiwidie.com'; // Production
-var api_url = 'http://api.studiwidie.app'; // Development
+var api_url = 'http://api.localhost'; // Production
+//var api_url = 'http://api.studiwidie.app'; // Development
 
 $( document ).on( "mobileinit", function() {
     console.log("Studiwidie initialization is started.");
