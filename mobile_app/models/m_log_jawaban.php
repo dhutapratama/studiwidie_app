@@ -108,4 +108,16 @@ class M_log_jawaban extends CI_Model{
 			return false;
 		}
 	}
+
+	public function get_log_jawaban_by_no_seri ($data = array('id_user' => '', 'id_mapel' => '', 'no_seri' => '')) {
+
+		$database = $this->db->select('*')
+					->from('log_jawaban')
+					->where('id_user', $data['id_user'])
+					->where('id_mapel', $data['id_mapel'])
+					->where('no_seri', $data['no_seri'])
+					->get()->result();
+
+		return $database;
+	}
 }

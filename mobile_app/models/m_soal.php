@@ -125,7 +125,7 @@ class M_soal extends CI_Model{
 			$database = $database->result();
 			return $database;
 		} else {
-			return array();
+			return false;
 		}
 	}
 

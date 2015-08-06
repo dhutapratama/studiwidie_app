@@ -195,14 +195,21 @@ class Siswa extends CI_Controller {
 	}
 
 	public function get_soal() {
+		$id_user  = $this->session->userdata('user_id');
 		$id_mapel = $this->input->post('id_mapel');
 		$no_seri  = $this->input->post('no_seri');
 		$no_soal  = $this->input->post('nomor_soal');
 
 		$data_soal['id_mapel'] = $id_mapel;
 		$data_soal['no_seri']  = $no_seri;
-		$get_soal = $this->m_soal->get_soal_by_seri($data_soal);
-
+		$data_soal['id_user']  = $this->encrypt->decode($id_user);;
+		$get_soal	 = $this->m_soal->get_soal_by_seri($data_soal);
+		$get_jawaban = $this->m_log_jawaban->get_log_jawaban_by_no_seri($data_soal);
+		//print_r($id_user);
+		
+		if ($get_soal == false) {
+			$html['soal'] = false;
+		}
 		$html['soal'] 		= $get_soal[$no_soal]->soal;
 		$html['jawaban_a'] 	= $get_soal[$no_soal]->jawaban_a;
 		$html['jawaban_b'] 	= $get_soal[$no_soal]->jawaban_b;
@@ -212,6 +219,7 @@ class Siswa extends CI_Controller {
 		$html['hint_1'] 	= $get_soal[$no_soal]->hint_1;
 		$html['hint_2'] 	= $get_soal[$no_soal]->hint_2;
 		$html['hint_3'] 	= $get_soal[$no_soal]->hint_3;
+		$html['jawaban']	= $get_jawaban[$no_soal]->jawaban;
 
 		$output['time']  		= time();
 		$output['user_id'] 		= $this->session->userdata('user_id');
