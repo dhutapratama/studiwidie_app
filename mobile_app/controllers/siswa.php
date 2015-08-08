@@ -210,16 +210,22 @@ class Siswa extends CI_Controller {
 		if ($get_soal == false) {
 			$html['soal'] = false;
 		}
-		$html['soal'] 		= $get_soal[$no_soal]->soal;
-		$html['jawaban_a'] 	= $get_soal[$no_soal]->jawaban_a;
-		$html['jawaban_b'] 	= $get_soal[$no_soal]->jawaban_b;
-		$html['jawaban_c'] 	= $get_soal[$no_soal]->jawaban_c;
-		$html['jawaban_d'] 	= $get_soal[$no_soal]->jawaban_d;
-		$html['jawaban_e'] 	= $get_soal[$no_soal]->jawaban_e;
-		$html['hint_1'] 	= $get_soal[$no_soal]->hint_1;
-		$html['hint_2'] 	= $get_soal[$no_soal]->hint_2;
-		$html['hint_3'] 	= $get_soal[$no_soal]->hint_3;
-		$html['jawaban']	= $get_jawaban[$no_soal]->jawaban;
+
+		if (!isset($get_soal[$no_soal]->soal)) {
+			$html['soal'] = false;
+		} else {
+			$html['soal'] 		= $get_soal[$no_soal]->soal;
+			$html['jawaban_a'] 	= $get_soal[$no_soal]->jawaban_a;
+			$html['jawaban_b'] 	= $get_soal[$no_soal]->jawaban_b;
+			$html['jawaban_c'] 	= $get_soal[$no_soal]->jawaban_c;
+			$html['jawaban_d'] 	= $get_soal[$no_soal]->jawaban_d;
+			$html['jawaban_e'] 	= $get_soal[$no_soal]->jawaban_e;
+			$html['hint_1'] 	= $get_soal[$no_soal]->hint_1;
+			$html['hint_2'] 	= $get_soal[$no_soal]->hint_2;
+			$html['hint_3'] 	= $get_soal[$no_soal]->hint_3;
+			$html['jawaban']	= $get_jawaban[$no_soal]->jawaban;
+		}
+			
 
 		$output['time']  		= time();
 		$output['user_id'] 		= $this->session->userdata('user_id');

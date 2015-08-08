@@ -538,8 +538,9 @@ $( document ).on( "vclick", "#ujian-next", function() {
     console.log('Next button triggered.');
 
     if ((ujian_nomor + 1) == jumlah_soal) {
-        clearInterval(counter);
+        clearInterval(timer); // <-----------------------------------------------------
         location.hash = "page-finish_ujian";
+        finishUjian();
     } else {
         if( $('#jawaban-a').is( ":checked" ) == true ) {
             jawaban = 'a';
@@ -644,7 +645,6 @@ function get_soal() {
                 console.log('Update soal di client.');
                 location.hash = 'page-progress';
 
-                jumlah_soal = obj.data.jumlah_soal;
                 $('#progress-soal').html(obj.data.soal);
                 $('#ans-a').html("A. " + obj.data.jawaban_a);
                 $('#ans-b').html("B. " + obj.data.jawaban_b);
@@ -745,7 +745,6 @@ function reset_jawaban() {
     } else if(ujian_jawaban == 'e') {
         $('#jawaban-e').prop('checked', true).checkboxradio('refresh');
     }
-
 }
 
 var count = 3000;
