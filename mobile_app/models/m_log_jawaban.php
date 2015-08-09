@@ -92,7 +92,6 @@ class M_log_jawaban extends CI_Model{
 	}
 
 	public function get_log_jawaban_by_soal ($data = array('id_user' => '', 'id_mapel' => '', 'no_seri' => '', 'id_soal' => '')) {
-
 		$database = $this->db->select('*')
 					->from('log_jawaban')
 					->where('id_user', $data['id_user'])

@@ -356,7 +356,7 @@
 <div data-role="page" id="page-finish_ujian">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" href="#start_ujian-menu">Menu</a>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#finish-menu">Menu</a>
         <h1>Akhiri Tryout</h1>
     </div><!-- /header -->
 
@@ -366,16 +366,18 @@
         </p>
         <table>
             <tr>
-                <td>Mata Pelajaran :</td>
+                <td>Mata Pelajaran</td>
+                <td>:</td>
                 <td id="finish-mapel"></td>
             </tr>
             <tr>
-                <td>Nomor Seri :</td>
+                <td>Nomor Seri</td>
+                <td>:</td>
                 <td id="finish-seri"></td>
             </tr>
         </table>
-        <button class="ui-shadow ui-btn ui-corner-all" id="stop_ujian">Selesai!</button>
-        <a class="ui-shadow ui-btn ui-corner-all" href="#page-result" data-theme="b">Kembali</a>
+        <button class="ui-shadow ui-btn ui-corner-all" id="stop-ujian" data-theme="b">Selesai!</button>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#page-progress">Kembali</a>
     </div><!-- /content -->
 
     <div data-role="footer" data-position="fixed">
@@ -396,9 +398,129 @@
     </div><!-- /notification -->
 </div><!-- /page -->
 
+<div data-role="page" id="page-hasil">
 
+    <div data-role="header">
+        <a class="ui-shadow ui-btn ui-corner-all" href="#hasil-menu">Menu</a>
+        <h1>Hasil Tryout</h1>
+    </div><!-- /header -->
 
+    <div role="main" class="ui-content">
+        <table class="">
+            <tr>
+                <td>Mata Pelajaran</td>
+                <td>:</td>
+                <td id="hasil-mapel">-</td>
+            </tr>
+            <tr>
+                <td>Nomor Seri</td>
+                <td>:</td>
+                <td id="hasil-seri">-</td>
+            </tr>
+            <tr>
+                <td>Tanggal</td>
+                <td>:</td>
+                <td id="hasil-tanggal">-</td>
+            </tr>
+            <tr>
+                <td>Jumlah Soal</td>
+                <td>:</td>
+                <td id="hasil-jumlah">-</td>
+            </tr>
+            <tr>
+                <td>Jawaban Benar</td>
+                <td>:</td>
+                <td id="hasil-benar">-</td>
+            </tr>
+            <tr>
+                <td>Jawaban Salah</td>
+                <td>:</td>
+                <td id="hasil-salah">-</td>
+            </tr>
+            <tr>
+                <td>Nilai</td>
+                <td>:</td>
+                <td id="hasil-nilai">-</td>
+            </tr>
 
+        </table>
+        <button class="ui-shadow ui-btn ui-corner-all" id="go_review">Review hasil</button>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#home-page">Kembali</a>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div data-role="panel" id="hasil-menu" data-display="overlay">
+        <ul data-role="listview">
+            <li id="hasil-nama">Menu</li>
+            <li><a href="#">Ubah Profil</a></li>
+            <li><a href="#">About</a></li>
+            <li><a id="logout">Logout</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    <div id="hasil-popup" data-role="popup" data-theme='b'>
+        <p id="hasil-notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
+
+<div data-role="page" id="page-review">
+
+    <div data-role="header">
+        <a class="ui-shadow ui-btn ui-corner-all" href="#review-menu">Menu</a>
+        <h1>Review Tryout</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <table border="1" width="100%" cellspacing="0">
+            <tr align="center">
+                <td id="review-nomor">No. 1</td>
+                <td id="review-mapel">Mapel</td>
+            </tr>
+        </table>
+
+        <p id="review-soal"></p>
+
+        <input name="review" id="review-a" value="a" type="radio" disabled="disabled">
+        <label for="review-a" id="rans-a">A. </label>
+        <input name="review" id="review-b" value="b" type="radio" disabled="disabled">
+        <label for="review-b" id="rans-b">B. </label>
+        <input name="review" id="review-c" value="c" type="radio" disabled="disabled">
+        <label for="review-c" id="rans-c">C. </label>
+        <input name="review" id="review-d" value="d" type="radio" disabled="disabled">
+        <label for="review-d" id="rans-d">D. </label>
+        <input name="review" id="review-e" value="e" type="radio" disabled="disabled">
+        <label for="review-e" id="rans-e">E. </label>
+
+        <hr>
+
+        <p>Jawaban : <span id="kunci-jawaban"></span></p>
+
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><button disabled="false" id="review-back" class="ui-btn ui-btn-b ui-icon-arrow-l ui-btn-icon-left">Kembali</button></div>
+            <div class="ui-block-b"><button disabled="false" id="review-next" class="ui-btn ui-btn-b ui-icon-arrow-r ui-btn-icon-right">Lanjut</button></div>
+        </div>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div data-role="panel" id="review-menu" data-display="overlay">
+        <ul data-role="listview">
+            <li id="review-nama">Menu</li>
+            <li><a href="#">Ubah Profil</a></li>
+            <li><a href="#">About</a></li>
+            <li><a id="logout">Logout</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    <div id="review-popup" data-role="popup" data-theme='b'>
+        <p id="review-notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
 
 
 
