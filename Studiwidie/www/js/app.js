@@ -19,8 +19,8 @@ var count_down_time     = 'Initialization';
 var first_time_ujian    = true;
 var first_time_review   = true;
 
-//var api_url = 'http://api.localhost'; // Production
-var api_url = 'http://api.studiwidie.app'; // Development
+var api_url = 'http://api.localhost'; // Production
+//var api_url = 'http://api.studiwidie.app'; // Development
 
 $( document ).on( "mobileinit", function() {
     console.log("Studiwidie initialization is started.");
@@ -104,6 +104,7 @@ function set_nama( nama ) {
     $( '#ujian-nama' ).html( nama );
     $( '#start_ujian-nama' ).html( nama );
     $( '#progress-nama' ).html( nama );
+    $( '#history-nama' ).html( nama );
 }
 
 function reset_all_input () {
@@ -287,6 +288,9 @@ $( document ).on( "vclick", "#register-button", function() {
 $( document ).on( "pagecreate", "#home-page", function() {
 });
 
+$( document ).on( "vclick", "#refreshHistory", function() {
+    refreshHistory();
+});
 // --------------------------------- End home Page ---------------------------------
 
 // --------------------------------- Start belajar Page ---------------------------------
@@ -1099,3 +1103,45 @@ function reset_jawaban_review() {
 }
 
 // --------------------------------- End hasilsw Page ---------------------------------
+
+// --------------------------------- Start History Page ---------------------------------
+
+function refreshHistory(){
+    $.mobile.loading( "show" );
+
+    post_url = "/siswa/get_history";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "get_history_list"
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                console.log('Update history di client.');
+
+                $('#review-soal').html(obj.data.soal);
+
+                
+            } else {
+                $.mobile.loading( "hide" );
+
+                $('#review-notif').html("Anda harus melakukan login untuk mengakses halaman ini.");
+                $('#review-popup').popup('open');
+
+                console.log("Wajib login untuk mengakses halaman ini.");
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+}
+// --------------------------------- End History Page ---------------------------------
