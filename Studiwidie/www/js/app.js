@@ -19,8 +19,8 @@ var count_down_time     = 'Initialization';
 var first_time_ujian    = true;
 var first_time_review   = true;
 
-var api_url = 'http://api.localhost'; // Production
-//var api_url = 'http://api.studiwidie.app'; // Development
+//var api_url = 'http://api.localhost'; // Production
+var api_url = 'http://api.studiwidie.app'; // Development
 
 $( document ).on( "mobileinit", function() {
     console.log("Studiwidie initialization is started.");
@@ -105,6 +105,7 @@ function set_nama( nama ) {
     $( '#start_ujian-nama' ).html( nama );
     $( '#progress-nama' ).html( nama );
     $( '#history-nama' ).html( nama );
+    $( '#about-nama' ).html( nama );
 }
 
 function reset_all_input () {
