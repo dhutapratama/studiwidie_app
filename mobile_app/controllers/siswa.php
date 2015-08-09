@@ -370,5 +370,48 @@ class Siswa extends CI_Controller {
 		$data['data'] = $output;
 		$this->load->view('parse_json', $data);
 	}
+
+	public function get_review() {
+		$id_user  = $this->session->userdata('user_id');
+		$id_mapel = $this->input->post('id_mapel');
+		$no_seri  = $this->input->post('no_seri');
+		$no_soal  = $this->input->post('nomor_soal');
+
+		$data_soal['id_mapel'] = $id_mapel;
+		$data_soal['no_seri']  = $no_seri;
+		$data_soal['id_user']  = $this->encrypt->decode($id_user);;
+		$get_soal	 = $this->m_soal->get_soal_by_seri($data_soal);
+		$get_jawaban = $this->m_log_jawaban->get_log_jawaban_by_no_seri($data_soal);
+		
+		if ($get_soal == false) {
+			$html['soal'] = false;
+		}
+
+		if (!isset($get_soal[$no_soal]->soal)) {
+			$html['soal'] = false;
+		} else {
+			$html['soal'] 			= $get_soal[$no_soal]->soal;
+			$html['jawaban_a'] 		= $get_soal[$no_soal]->jawaban_a;
+			$html['jawaban_b'] 		= $get_soal[$no_soal]->jawaban_b;
+			$html['jawaban_c'] 		= $get_soal[$no_soal]->jawaban_c;
+			$html['jawaban_d'] 		= $get_soal[$no_soal]->jawaban_d;
+			$html['jawaban_e'] 		= $get_soal[$no_soal]->jawaban_e;
+			$html['kunci_jawaban'] 	= $get_soal[$no_soal]->kunci_jawaban;
+			$html['jawaban']		= $get_jawaban[$no_soal]->jawaban;
+		}
+			
+
+		$output['time']  		= time();
+		$output['user_id'] 		= $this->session->userdata('user_id');
+		$output['user_type'] 	= $this->session->userdata('user_type');
+		$output['nama'] 		= $this->session->userdata('nama');
+		$output['logged_in'] 	= $this->session->userdata('logged_in');
+		$output['notification'] = 'Mengambil data materi.';
+		$output['notif_type'] 	= 'success';
+		$output['data'] 		= $html;
+
+		$data['data'] = $output;
+		$this->load->view('parse_json', $data);
+	}
 }
 

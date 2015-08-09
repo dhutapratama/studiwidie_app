@@ -16,6 +16,8 @@ var jawaban             = '';
 var counter             = '';
 var count               = 3000;
 var count_down_time     = 'Initialization';
+var first_time_ujian    = true;
+var first_time_review   = true;
 
 //var api_url = 'http://api.localhost'; // Production
 var api_url = 'http://api.studiwidie.app'; // Development
@@ -119,6 +121,18 @@ function loginRequired() {
     setTimeout(function (){
         location.hash = "public-page";
     }, 2000);
+}
+
+function resetVarUjian () {
+    var ujian_mapel         = '';
+    var ujian_mapel_text    = '';
+    var ujian_seri          = '';
+    var ujian_hint          = [];
+    var ujian_hint_number   = 3;
+    var ujian_nomor         = 0;
+    var ujian_jawaban       = '';
+    var jumlah_soal         = 0;
+    var jawaban             = '';
 }
 
 // Logout
@@ -499,6 +513,7 @@ $( document ).on( "vclick", "#open-ujian", function() {
 $( document ).on( "vclick", "#go_ujian", function() {
     $.mobile.loading( "show" );
 
+    ujian_nomor = 0;
     post_url = "/siswa/init_ujian";
 
     $.ajax({ type: 'POST', url: api_url + post_url, data: 
@@ -527,6 +542,16 @@ $( document ).on( "vclick", "#go_ujian", function() {
                 $('#ans-c').html("C. " + obj.data.jawaban_c);
                 $('#ans-d').html("D. " + obj.data.jawaban_d);
                 $('#ans-e').html("E. " + obj.data.jawaban_e);
+
+                if (first_time_ujian == true) {
+                    first_time_ujian = false;
+                } else {
+                    $('#jawaban-a').prop('checked', false).checkboxradio('refresh');
+                    $('#jawaban-b').prop('checked', false).checkboxradio('refresh');
+                    $('#jawaban-c').prop('checked', false).checkboxradio('refresh');
+                    $('#jawaban-d').prop('checked', false).checkboxradio('refresh');
+                    $('#jawaban-e').prop('checked', false).checkboxradio('refresh');
+                }
 
                 ujian_hint = [ obj.data.hint_1, obj.data.hint_2, obj.data.hint_3 ];
 
@@ -842,9 +867,9 @@ function finishUjian() {
 
 $( document ).on( "vclick", "#go_review", function() {
     $.mobile.loading( "show" );
-    ujian_nomor = 0;
 
-    post_url = "/siswa/init_review";
+    ujian_nomor = 0;
+    post_url    = "/siswa/init_review";
 
     $.ajax({ type: 'POST', url: api_url + post_url, data: 
         {
@@ -873,8 +898,16 @@ $( document ).on( "vclick", "#go_review", function() {
                 $('#rans-d').html("D. " + obj.data.jawaban_d);
                 $('#rans-e').html("E. " + obj.data.jawaban_e);
                 $('#kunci-jawaban').html(obj.data.kunci_jawaban);
-                alert(obj.data.mata_pelajaran);
                 $('#review-mapel').html(obj.data.mata_pelajaran);
+
+                if (first_time_review == false) {
+                    $('#review-a').prop('checked', false).checkboxradio('refresh');
+                    $('#review-b').prop('checked', false).checkboxradio('refresh');
+                    $('#review-c').prop('checked', false).checkboxradio('refresh');
+                    $('#review-d').prop('checked', false).checkboxradio('refresh');
+                    $('#review-e').prop('checked', false).checkboxradio('refresh');
+                }
+
                 if (obj.data.jawaban == 'a') {
                     $('#review-a').prop('checked', true);
                 } else if(obj.data.jawaban == 'b') {
@@ -886,7 +919,18 @@ $( document ).on( "vclick", "#go_review", function() {
                 } else if(obj.data.jawaban == 'e') {
                     $('#review-e').prop('checked', true);
                 }
+
                 review_set();
+
+                if (first_time_review == true) {
+                    first_time_review = false;
+                } else {
+                    $('#review-a').checkboxradio('refresh');
+                    $('#review-b').checkboxradio('refresh');
+                    $('#review-c').checkboxradio('refresh');
+                    $('#review-d').checkboxradio('refresh');
+                    $('#review-e').checkboxradio('refresh');
+                }
 
             } else {
                 $.mobile.loading( "hide" );
@@ -941,31 +985,26 @@ $( document ).on( "vclick", "#review-next", function() {
 
 $( document ).on( "vclick", "#review-back", function() {
     console.log('Back button triggered.');
+    
+    if( $('#review-a').is( ":checked" ) == true ) {
+        jawaban = 'a';
+    } else if( $('#review-b').is( ":checked" ) == true ) {
+        jawaban = 'b';
+    } else if( $('#review-c').is( ":checked" ) == true ) {
+        jawaban = 'c';
+    } else if( $('#review-d').is( ":checked" ) == true ) {
+        jawaban = 'd';
+    } else if( $('#review-e').is( ":checked" ) == true ) {
+        jawaban = 'e';
+    }
 
-    if ((ujian_nomor + 1) == jumlah_soal) {
-        clearInterval(counter);
-        location.hash = "page-finish_ujian";
-    } else {
-        if( $('#review-a').is( ":checked" ) == true ) {
-            jawaban = 'a';
-        } else if( $('#review-b').is( ":checked" ) == true ) {
-            jawaban = 'b';
-        } else if( $('#review-c').is( ":checked" ) == true ) {
-            jawaban = 'c';
-        } else if( $('#review-d').is( ":checked" ) == true ) {
-            jawaban = 'd';
-        } else if( $('#review-e').is( ":checked" ) == true ) {
-            jawaban = 'e';
-        }
+    ujian_nomor--;
+    console.log("Ambil soal ujian dengan seri " + ujian_seri + ' dan nomor array ' + ujian_nomor + '.');
+    get_soal_review();
 
-        ujian_nomor--;
-        console.log("Ambil soal ujian dengan seri " + ujian_seri + ' dan nomor array ' + ujian_nomor + '.');
-        get_soal();
-
-        // Reset
-        review_set();
-        jawaban = '';
-    }  
+    // Reset
+    review_set();
+    jawaban = '';
 });
 
 function review_set() {
@@ -984,7 +1023,7 @@ function review_set() {
 function get_soal_review() {
     $.mobile.loading( "show" );
 
-    post_url = "/siswa/get_soal";
+    post_url = "/siswa/get_review";
 
     $.ajax({ type: 'POST', url: api_url + post_url, data: 
         {
@@ -1010,6 +1049,7 @@ function get_soal_review() {
                 $('#rans-c').html("C. " + obj.data.jawaban_c);
                 $('#rans-d').html("D. " + obj.data.jawaban_d);
                 $('#rans-e').html("E. " + obj.data.jawaban_e);
+                $('#kunci-jawaban').html(obj.data.kunci_jawaban);
                 ujian_jawaban = obj.data.jawaban;
                 preparePageReview();
                 reset_jawaban_review();
