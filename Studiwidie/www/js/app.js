@@ -14,13 +14,13 @@ var ujian_jawaban       = '';
 var jumlah_soal         = 0;
 var jawaban             = '';
 var counter             = '';
-var count               = 3000;
+var count               = 1800;
 var count_down_time     = 'Initialization';
 var first_time_ujian    = true;
 var first_time_review   = true;
 
-//var api_url = 'http://api.localhost'; // Production
-var api_url = 'http://api.studiwidie.app'; // Development
+var api_url = 'http://api.localhost'; // Production
+//var api_url = 'http://api.studiwidie.app'; // Development
 
 $( document ).on( "mobileinit", function() {
     console.log("Studiwidie initialization is started.");
@@ -105,6 +105,9 @@ function set_nama( nama ) {
     $( '#start_ujian-nama' ).html( nama );
     $( '#progress-nama' ).html( nama );
     $( '#history-nama' ).html( nama );
+    $( '#menu-profil-nama' ).html( nama );
+    $( '#ubah_profil-nama' ).html( nama );
+    $( '#ubah_profil-nama' ).html( nama );
     $( '#about-nama' ).html( nama );
 }
 
@@ -560,6 +563,7 @@ $( document ).on( "vclick", "#go_ujian", function() {
 
                 ujian_hint = [ obj.data.hint_1, obj.data.hint_2, obj.data.hint_3 ];
 
+                count  = 1800;
                 counter = setInterval(timer, 1000); //1000 will run it every 1 second
                 page_set();
 
@@ -1189,4 +1193,79 @@ function refreshHistory(){
         error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
     });
 }
+
 // --------------------------------- End History Page ---------------------------------
+
+// --------------------------------- Start profil Page ---------------------------------
+
+$( document ).on( "vclick", "#open-profil", function() {
+    $.mobile.loading( "show" );
+
+    console.log('Ambil data profil.');
+
+    post_url = "/siswa/get_profil";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "data_profil"
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                $('#profil-username').html(obj.data.username);
+                $('#profil-nama').html(obj.data.nama);
+                $('#profil-email').html(obj.data.email);
+
+                $('#ubah-username').val(obj.data.username);
+                $('#ubah-nama').val(obj.data.nama);
+                $('#ubah-email').val(obj.data.email);
+            } else {
+                loginRequired();
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+});
+
+$( document ).on( "vclick", "#ubah-profil", function() {
+    $.mobile.loading( "show" );
+
+    console.log('Ambil data profil.');
+
+    post_url = "/siswa/update_profil";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "ubah_profil",
+            nama: $( "#ubah-nama" ).val(),
+            email: $( "#ubah-email" ).val(),
+            password: $( "#ubah-password" ).val(),
+            passconf: $( "#ubah-passconf" ).val(),
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                $('#ubah_profil-notif').html("Profil berhasil diperbarui.");
+                $('#ubah_profil-popup').popup('open');
+
+                set_nama( obj.data.nama );
+            } else {
+                loginRequired();
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+});
+// --------------------------------- End profil Page ---------------------------------

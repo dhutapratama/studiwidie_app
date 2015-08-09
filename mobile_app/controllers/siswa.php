@@ -440,5 +440,52 @@ class Siswa extends CI_Controller {
 		$data['data'] = $output;
 		$this->load->view('parse_json', $data);
 	}
+
+	public function get_profil() {
+		$id_user 	= $this->session->userdata('user_id');
+		$get_profil	= $this->m_users->get_users_by_id($id_user);
+		
+		$html['nama'] 		= $get_profil->nama;
+		$html['email'] 		= $get_profil->email;
+		$html['username'] 	= $get_profil->username;
+
+		$output['time']  		= time();
+		$output['user_id'] 		= $this->session->userdata('user_id');
+		$output['user_type'] 	= $this->session->userdata('user_type');
+		$output['nama'] 		= $this->session->userdata('nama');
+		$output['logged_in'] 	= $this->session->userdata('logged_in');
+		$output['notification'] = 'Mengambil data materi.';
+		$output['notif_type'] 	= 'success';
+		$output['data'] 		= $html;
+
+		$data['data'] = $output;
+		$this->load->view('parse_json', $data);
+	}
+
+	public function update_profil() {
+		$id_user 	= $this->session->userdata('user_id');
+
+		$profil['nama']		= $this->input->post('nama');
+		$profil['email']	= $this->input->post('email');
+		$profil['password']	= $this->input->post('password');
+		$profil['passconf']	= $this->input->post('passconf');
+
+		$update_profil	= $this->m_users->update_users($id_user, $profil);
+		
+		$html['nama'] 		= $profil['nama'];
+		$html['email'] 		= $profil['email'];
+
+		$output['time']  		= time();
+		$output['user_id'] 		= $this->session->userdata('user_id');
+		$output['user_type'] 	= $this->session->userdata('user_type');
+		$output['nama'] 		= $this->session->userdata('nama');
+		$output['logged_in'] 	= $this->session->userdata('logged_in');
+		$output['notification'] = 'Mengambil data materi.';
+		$output['notif_type'] 	= 'success';
+		$output['data'] 		= $html;
+
+		$data['data'] = $output;
+		$this->load->view('parse_json', $data);
+	}
 }
 

@@ -126,7 +126,7 @@
     <div data-role="panel" id="user_menu-home-panel" data-display="overlay">
         <ul data-role="listview">
             <li id="home-nama">Menu</li>
-            <li><a href="#page-profil">Profil</a></li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
             <li><a href="#page-about">About</a></li>
             <li><a id="logout">Logout</a></li>
         </ul>
@@ -159,7 +159,7 @@
     <div data-role="panel" id="user_menu-belajar-panel" data-display="overlay">
         <ul data-role="listview">
             <li id="belajar-nama">Menu</li>
-            <li><a href="#page-profil">Profil</a></li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
             <li><a href="#page-about">About</a></li>
             <li><a id="logout">Logout</a></li>
         </ul>
@@ -192,7 +192,7 @@
     <div data-role="panel" id="user_menu-belajar_materi-panel" data-display="overlay">
         <ul data-role="listview">
             <li id="belajar_materi-nama">Menu</li>
-            <li><a href="#page-profil">Profil</a></li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
             <li><a href="#page-about">About</a></li>
             <li><a id="logout">Logout</a></li>
         </ul>
@@ -223,7 +223,7 @@
     <div data-role="panel" id="user_menu-materi-panel" data-display="overlay">
         <ul data-role="listview">
             <li id="materi-nama">Menu</li>
-            <li><a href="#page-profil">Profil</a></li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
             <li><a href="#page-about">About</a></li>
             <li><a id="logout">Logout</a></li>
         </ul>
@@ -256,7 +256,7 @@
     <div data-role="panel" id="ujian-menu" data-display="overlay">
         <ul data-role="listview">
             <li id="ujian-nama">Menu</li>
-            <li><a href="#page-profil">Profil</a></li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
             <li><a href="#page-about">About</a></li>
             <li><a id="logout">Logout</a></li>
         </ul>
@@ -302,7 +302,7 @@
     <div data-role="panel" id="start_ujian-menu" data-display="overlay">
         <ul data-role="listview">
             <li id="start_ujian-nama">Menu</li>
-            <li><a href="#page-profil">Ubah Profil</a></li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
             <li><a href="#page-about">About</a></li>
             <li><a id="logout">Logout</a></li>
         </ul>
@@ -449,7 +449,7 @@
     <div data-role="panel" id="hasil-menu" data-display="overlay">
         <ul data-role="listview">
             <li id="hasil-nama">Menu</li>
-            <li><a href="#page-profil">Profil</a></li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
             <li><a href="#page-about">About</a></li>
             <li><a id="logout">Logout</a></li>
         </ul>
@@ -506,7 +506,7 @@
     <div data-role="panel" id="review-menu" data-display="overlay">
         <ul data-role="listview">
             <li id="review-nama">Menu</li>
-            <li><a href="#page-profil">Profil</a></li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
             <li><a href="#page-about">About</a></li>
             <li><a id="logout">Logout</a></li>
         </ul>
@@ -539,7 +539,7 @@
     <div data-role="panel" id="menu-history" data-display="overlay">
         <ul data-role="listview">
             <li id="history-nama">Menu</li>
-            <li><a href="#page-profil">Profil</a></li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
             <li><a href="#page-about">About</a></li>
             <li><a id="logout">Logout</a></li>
         </ul>
@@ -563,17 +563,17 @@
                 <tr>
                     <td width="20%">Username</td>
                     <td width="5%">:</td>
-                    <td>-</td>
+                    <td id="profil-username">-</td>
                 </tr>
                 <tr>
                     <td width="20%">Nama</td>
                     <td width="5%">:</td>
-                    <td>-</td>
+                    <td id="profil-nama">-</td>
                 </tr>
                 <tr>
                     <td width="20%">Email</td>
                     <td width="5%">:</td>
-                    <td>-</td>
+                    <td id="profil-email">-</td>
                 </tr>
             </table>
         </p>
@@ -587,8 +587,8 @@
 
     <div data-role="panel" id="profil-menu" data-display="overlay">
         <ul data-role="listview">
-            <li id="profil-nama">Menu</li>
-            <li><a href="#page-profil">Profil</a></li>
+            <li id="menu-profil-nama">Menu</li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
             <li><a href="#page-about">About</a></li>
             <li><a id="logout">Logout</a></li>
         </ul>
@@ -602,16 +602,21 @@
 <div data-role="page" id="page-ubah_profil">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" href="#profil-menu">Menu</a>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#ubah_profil-menu">Menu</a>
         <h1>Ubah Profil</h1>
         <a class="ui-shadow ui-btn ui-corner-all" href="#page-profil">Kembali</a>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
+        <label for="ubah-nama">NAMA :</label>
         <input data-clear-btn="true" id="ubah-nama" value="" type="text" placeholder="Nama Lengkap" required>
+        <label for="ubah-email">EMAIL :</label>
         <input data-clear-btn="true" id="ubah-email" value="" type="email" placeholder="Email" required>
-        <input data-clear-btn="true" id="ubah-username" value="" type="text" placeholder="Username" required>
+        <label for="username-nama">USERAME :</label>
+        <input data-clear-btn="true" id="ubah-username" value="" type="text" placeholder="Username" disabled>
+        <label for="ubah-password">PASSWORD :</label>
         <input data-clear-btn="true" id="ubah-password" value="" type="password" placeholder="Password">
+        <label for="ubah-passconf">KONFIRMASI PASSWORD :</label>
         <input data-clear-btn="true" id="ubah-passconf" value="" type="password" placeholder="Konfirmasi Password">
         <button class="ui-shadow ui-btn ui-corner-all" id="ubah-profil">Ubah Profil</button>
     </div><!-- /content -->
@@ -620,17 +625,17 @@
         <h4>&copy; 2015 Studiwidie App</h4>
     </div><!-- /footer -->
 
-    <div data-role="panel" id="profil-menu" data-display="overlay">
+    <div data-role="panel" id="ubah_profil-menu" data-display="overlay">
         <ul data-role="listview">
-            <li id="profil-nama">Menu</li>
-            <li><a href="#page-profil">Profil</a></li>
+            <li id="ubah_profil-nama">Menu</li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
             <li><a href="#page-about">About</a></li>
             <li><a id="logout">Logout</a></li>
         </ul>
     </div><!-- /panel -->
 
-    <div id="profil-popup" data-role="popup" data-theme='b'>
-        <p id="profil-notif">Notification</p>
+    <div id="ubah_profil-popup" data-role="popup" data-theme='b'>
+        <p id="ubah_profil-notif">Notification</p>
     </div><!-- /notification -->
 </div><!-- /page -->
 
@@ -639,7 +644,7 @@
     <div data-role="header">
         <a class="ui-shadow ui-btn ui-corner-all" href="#about-menu">Menu</a>
         <h1>About Studiwidie</h1>
-        <a class="ui-shadow ui-btn ui-corner-all" href="#page-hasil">Kembali</a>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#home-page">Kembali</a>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
@@ -654,7 +659,7 @@
     <div data-role="panel" id="about-menu" data-display="overlay">
         <ul data-role="listview">
             <li id="about-nama">Menu</li>
-            <li><a href="#page-profil">Profil</a></li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
             <li><a href="#page-about">About</a></li>
             <li><a id="logout">Logout</a></li>
         </ul>

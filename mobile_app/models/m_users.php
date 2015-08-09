@@ -67,8 +67,10 @@ class M_users extends CI_Model{
 
 		if ($data['password'] != '') {
 			$data['password'] = md5($data['password']);
+			unset($data['passconf']);// ----------------------
 		} else {
 			unset($data['password']);
+			unset($data['passconf']); //-------------------------
 		}
 
 		$id = $this->encrypt->decode($encrypted_id);
