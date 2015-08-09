@@ -18,6 +18,7 @@ var count               = 1800;
 var count_down_time     = 'Initialization';
 var first_time_ujian    = true;
 var first_time_review   = true;
+var first_time_materi   = true;
 
 var api_url = 'http://api.localhost'; // Production
 //var api_url = 'http://api.studiwidie.app'; // Development
@@ -362,8 +363,12 @@ $( document ).on( "vclick", "#open-learning", function() {
 
                 location.hash = 'belajar_materi-page';
 
-                $( '#mapel-belajar_materi' ).html( obj.data.get_learning);
-               //$( '#mapel-belajar_materi' ).listview( "refresh" );
+                $( '#mapel-belajar_materi' ).html( obj.data.get_learning );
+                if (first_time_materi == true) {
+                    first_time_materi = false;
+                } else {
+                    $( '#mapel-belajar_materi' ).listview( "refresh" );
+                }
                 
             } else {
                 $.mobile.loading( "hide" );
