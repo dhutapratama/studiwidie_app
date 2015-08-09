@@ -669,10 +669,8 @@ $( document ).on( "vclick", "#ujian-hint", function() {
 $( document ).on( "vclick", "#stop-ujian", function() {
     console.log('Ujian diakhiri!');
     clearInterval(counter);
-    location.hash = "page-hasil_ujian";
+    location.hash = "page-hasil";
     $.mobile.loading( "show" );
-
-    id_mapel = $( this ).data('id_mapel');
 
     post_url = "/siswa/get_hasil";
 
@@ -1106,6 +1104,49 @@ function reset_jawaban_review() {
 
 // --------------------------------- Start History Page ---------------------------------
 
+$( document ).on( "vclick", "#open-history_nilai", function() {
+    $.mobile.loading( "show" );
+
+    ujian_nomor = 0;
+    ujian_mapel = $(this).data('id_mapel');
+    ujian_seri  = $(this).data('no_seri');
+
+    console.log('Review hasil tryout!');
+
+    post_url = "/siswa/get_hasil";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "hasil_ujian",
+            id_mapel: ujian_mapel,
+            no_seri: ujian_seri
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                console.log('Mengambil hasil ujian.');
+                location.hash = "page-hasil";
+                $('#hasil-mapel').html(obj.data.mata_pelajaran);
+                $('#hasil-seri').html(obj.data.no_seri);
+                $('#hasil-tanggal').html(obj.data.tanggal);
+                $('#hasil-jumlah').html(obj.data.jumlah_soal);
+                $('#hasil-benar').html(obj.data.jawaban_benar);
+                $('#hasil-salah').html(obj.data.jawaban_salah);
+                $('#hasil-nilai').html(obj.data.nilai);
+            } else {
+                loginRequired();
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+});
+
 function refreshHistory(){
     $.mobile.loading( "show" );
 
@@ -1126,9 +1167,12 @@ function refreshHistory(){
             if(obj.logged_in == true) {
                 console.log('Update history di client.');
 
-                $('#review-soal').html(obj.data.soal);
+                if (obj.data.history == '') {
+                    $('#history-tryout').html('<li>Anda belum melakukan tryout.</li>').listview('refresh');
+                } else {
+                    $('#history-tryout').html(obj.data.history).listview('refresh');
+                }
 
-                
             } else {
                 $.mobile.loading( "hide" );
 

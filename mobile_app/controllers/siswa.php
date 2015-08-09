@@ -413,5 +413,32 @@ class Siswa extends CI_Controller {
 		$data['data'] = $output;
 		$this->load->view('parse_json', $data);
 	}
+
+	public function get_history() {
+		$id_user 		= $this->session->userdata('user_id');
+		$get_history	= $this->m_log_tryout->get_log_tryout_by_id_user($id_user);
+
+		$html['history'] = '';
+		
+		if ($get_history == false) {
+			$html['history'] = false;
+		} else {
+			foreach ($get_history as $key => $value) {
+				$html['history'] .= '<li><a href="#page-hasil" data-id_mapel="'.$value->id_mapel.'" data-no_seri="'.$value->no_seri.'" id="open-history_nilai">' . $this->m_mata_pelajaran->get_mata_pelajaran_by_id($value->id_mapel)->mapel . ' | ' . $value->no_seri . '</a></li>';
+			}
+		}
+
+		$output['time']  		= time();
+		$output['user_id'] 		= $this->session->userdata('user_id');
+		$output['user_type'] 	= $this->session->userdata('user_type');
+		$output['nama'] 		= $this->session->userdata('nama');
+		$output['logged_in'] 	= $this->session->userdata('logged_in');
+		$output['notification'] = 'Mengambil data materi.';
+		$output['notif_type'] 	= 'success';
+		$output['data'] 		= $html;
+
+		$data['data'] = $output;
+		$this->load->view('parse_json', $data);
+	}
 }
 

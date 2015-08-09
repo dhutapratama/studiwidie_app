@@ -110,7 +110,7 @@
                 </a>
             </li>
             <li>
-                <a href="#page-history">
+                <a href="#page-history" id="refreshHistory">
                     <img src="menu_icon/calendar.png">
                     <h2>History</h2>
                     <p>Mereview Try Out Sebelumnya</p>
@@ -522,20 +522,16 @@
     </div><!-- /notification -->
 </div><!-- /page -->
 
-
-
-
-
 <div data-role="page" id="page-history">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" id="menu-button">Menu</a>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#menu-history">Menu</a>
         <h1>History</h1>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
 
-        <ul data-role="listview" id="mapel-belajar">
+        <ul data-role="listview" id="history-tryout">
             <li>Sedang mengambil data ...</li>
         </ul>
     </div><!-- /content -->
@@ -544,9 +540,9 @@
         <h4>&copy; 2015 Studiwidie App</h4>
     </div><!-- /footer -->
 
-    <div data-role="panel" id="menu-panel" data-display="overlay">
+    <div data-role="panel" id="menu-history" data-display="overlay">
         <ul data-role="listview">
-            <li id="ujian-nama">Menu</li>
+            <li id="history-nama">Menu</li>
             <li><a href="#">Ubah Profil</a></li>
             <li><a href="#">About</a></li>
             <li><a id="logout">Logout</a></li>
