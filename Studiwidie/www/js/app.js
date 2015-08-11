@@ -1,7 +1,7 @@
 // Variable Initialization
 var username            = '';
 var password            = '';
-var logged_in           = window.localStorage["logged_in"];
+var logged_in           = window.localStorage.logged_in;
 var post_url            = '';
 var id_mapel            = '';
 var ujian_mapel         = '';
@@ -42,8 +42,8 @@ $( document ).on( "mobileinit", function() {
 
 function initialization() {
     var post_url = "/login";
-	username = window.localStorage["username"];
-	password = window.localStorage["password"];
+	username = window.localStorage.username;
+	password = window.localStorage.password;
 
 	console.log("Login check with saved username & password in the localStorage.");
 
@@ -60,7 +60,7 @@ function initialization() {
             // JSON response
             var obj = jQuery.parseJSON( data );
 
-            if(obj.logged_in == true) {
+            if(obj.logged_in === true) {
                 console.log("Login berhasil, username & password localStorage benar.");
 
                 set_nama(obj.nama);
@@ -157,14 +157,14 @@ $( document ).on( "vclick", "#logout", function() {
             // JSON response
             var obj = jQuery.parseJSON( data );
 
-            if(obj.logged_in == false) {
+            if(obj.logged_in === false) {
                 console.log("Logout berhasil.");
 
                 $('#home-notif').html(obj.notification);
                 $('#home-popup').popup('open');
 
-                window.localStorage["username"] = '';
-                window.localStorage["password"] = '';
+                window.localStorage.username = '';
+                window.localStorage.password = '';
 
                 setTimeout(function (){
                     location.hash = "public-page";
@@ -205,14 +205,14 @@ $( document ).on( "vclick", "#login-button", function() {
             // JSON response
             var obj = jQuery.parseJSON( data );
 
-            if(obj.logged_in == true) {
+            if(obj.logged_in === true) {
                 console.log("Login berhasil, username & password disimpan ke localStorage.");
 
                 $('#login-notif').html(obj.notification);
                 $('#login-popup').popup('open');
 
-                window.localStorage["username"] = username;
-                window.localStorage["password"] = password;
+                window.localStorage.username = username;
+                window.localStorage.password = password;
 
                 set_nama(obj.nama);
                 reset_all_input();
@@ -260,14 +260,16 @@ $( document ).on( "vclick", "#register-button", function() {
             // JSON response
             var obj = jQuery.parseJSON( data );
 
-            if(obj.logged_in == true) {
+            if(obj.logged_in === true) {
                 console.log("Registrasi berhasil.");
 
                 $('#login-notif').html(obj.notification);
                 $('#login-popup').popup('open');
 
-                window.localStorage["username"] = username;
-                window.localStorage["password"] = password;
+                window.localStorage.username = username;
+                window.localStorage.password = password;
+
+                set_nama( nama );
 
                 setTimeout(function (){
                     location.hash = "home-page";
@@ -1000,7 +1002,7 @@ $( document ).on( "vclick", "#review-back", function() {
     
     if( $('#review-a').is( ":checked" ) == true ) {
         jawaban = 'a';
-    } else if( $('#review-b').is( ":checked" ) == true ) {
+    } else if( $('#review-b').is( ":checked" ) === true ) {
         jawaban = 'b';
     } else if( $('#review-c').is( ":checked" ) == true ) {
         jawaban = 'c';
