@@ -8,7 +8,7 @@ var ujian_mapel         = '';
 var ujian_mapel_text    = '';
 var ujian_seri          = '';
 var ujian_hint          = [];
-var ujian_hint_number   = 3;
+var ujian_hint_number   = 2;
 var ujian_nomor         = 0;
 var ujian_jawaban       = '';
 var jumlah_soal         = 0;
@@ -20,6 +20,7 @@ var first_time_ujian    = true;
 var first_time_review   = true;
 var first_time_materi   = true;
 
+//var api_url = 'http://api.studiwidie.com'; // Production
 var api_url = 'http://api.localhost'; // Production
 //var api_url = 'http://api.studiwidie.app'; // Development
 
@@ -134,7 +135,6 @@ function resetVarUjian () {
     var ujian_mapel_text    = '';
     var ujian_seri          = '';
     var ujian_hint          = [];
-    var ujian_hint_number   = 3;
     var ujian_nomor         = 0;
     var ujian_jawaban       = '';
     var jumlah_soal         = 0;
@@ -748,6 +748,9 @@ function get_soal() {
                 $('#ans-d').html("D. " + obj.data.jawaban_d);
                 $('#ans-e').html("E. " + obj.data.jawaban_e);
 
+                ujian_hint_number = obj.data.hint;
+                $('#ujian-hint').html("Bantuan : " + obj.data.hint);
+
                 ujian_hint = [ obj.data.hint_1, obj.data.hint_2, obj.data.hint_3 ];
                 ujian_jawaban = obj.data.jawaban;
                 preparePageUjian();
@@ -780,7 +783,8 @@ function update_ujian() {
             id_mapel: ujian_mapel,
             no_seri: ujian_seri,
             nomor_soal: ujian_nomor,
-            jawaban : jawaban
+            jawaban : jawaban,
+            hint : ujian_hint_number
         },
 
         xhrFields: { withCredentials: true },

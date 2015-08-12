@@ -202,7 +202,7 @@ class Siswa extends CI_Controller {
 
 		$data_soal['id_mapel'] = $id_mapel;
 		$data_soal['no_seri']  = $no_seri;
-		$data_soal['id_user']  = $this->encrypt->decode($id_user);;
+		$data_soal['id_user']  = $this->encrypt->decode($id_user);
 		$get_soal	 = $this->m_soal->get_soal_by_seri($data_soal);
 		$get_jawaban = $this->m_log_jawaban->get_log_jawaban_by_no_seri($data_soal);
 		//print_r($id_user);
@@ -224,6 +224,7 @@ class Siswa extends CI_Controller {
 			$html['hint_2'] 	= $get_soal[$no_soal]->hint_2;
 			$html['hint_3'] 	= $get_soal[$no_soal]->hint_3;
 			$html['jawaban']	= $get_jawaban[$no_soal]->jawaban;
+			$html['hint']		= $get_jawaban[$no_soal]->hint;
 		}
 			
 
@@ -247,6 +248,7 @@ class Siswa extends CI_Controller {
 		$ujian['no_seri']  = $this->input->post('no_seri');
 		$no_soal  		   = $this->input->post('nomor_soal');
 		$ujian['jawaban']  = $this->input->post('jawaban');
+		$ujian['hint']  	= $this->input->post('hint');
 
 		$data_soal['id_mapel'] = $ujian['id_mapel'];
 		$data_soal['no_seri']  = $ujian['no_seri'];

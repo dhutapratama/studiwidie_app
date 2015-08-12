@@ -40,6 +40,7 @@ class M_log_jawaban extends CI_Model{
 			$data['no_seri']  = ;
 			$data['id_soal']  = ;
 			$data['jawaban']  = ;
+			$data['hint']  	  = ;
 		*/
 
 		$database = $this->db->insert('log_jawaban', $data);
@@ -54,6 +55,7 @@ class M_log_jawaban extends CI_Model{
 			$data['no_seri']  = ;
 			$data['id_soal']  = ;
 			$data['jawaban']  = ;
+			$data['hint']  	  = ;
 		*/
 
 		$id = $this->encrypt->decode($encrypted_id);

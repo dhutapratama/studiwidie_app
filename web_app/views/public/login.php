@@ -33,7 +33,7 @@
                 </p>
 
                 <p>
-                    Anda dapat mengunduh aplikasi Studiwidie disini <a href="#">UNDUH APLIKASI</a>
+                    Anda dapat mengunduh aplikasi Studiwidie disini <a href="<?php echo base_url('masters'); ?>">UNDUH APLIKASI</a>
                 </p>
 
                 <p>
