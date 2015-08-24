@@ -14,7 +14,7 @@ switch ($_SERVER['HTTP_HOST']) {
 	case 'studiwidie.com':
 		$db['default']['hostname'] = 'localhost';
 		$db['default']['username'] = 'dhutapra_studiwi';
-		$db['default']['password'] = 'mydatabase';
+		$db['default']['password'] = '';
 		$db['default']['database'] = 'dhutapra_studiwidie';
 		break;
 

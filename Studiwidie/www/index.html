@@ -88,8 +88,8 @@
 <div data-role="page" id="home-page">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" id="open_menu-button" href="#user_menu-home-panel">Menu</a>
         <h1>Studiwidie</h1>
+        <a class="ui-shadow ui-btn ui-corner-all ui-btn-right" id="open_menu-button" href="#user_menu-home-panel">Menu</a>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
@@ -140,9 +140,9 @@
 <div data-role="page" id="belajar-page">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" id="open_menu-button" href="#user_menu-belajar-panel">Menu</a>
-        <h1>Learning</h1>
         <a class="ui-shadow ui-btn ui-corner-all" href="#home-page">Kembali</a>
+        <h1>Learning</h1>
+        <a class="ui-shadow ui-btn ui-corner-all" id="open_menu-button" href="#user_menu-belajar-panel">Menu</a>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
@@ -173,9 +173,9 @@
 <div data-role="page" id="belajar_materi-page">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" id="open_menu-button" href="#user_menu-belajar_materi-panel">Menu</a>
-        <h1>Learning</h1>
         <a class="ui-shadow ui-btn ui-corner-all" href="#belajar-page">Kembali</a>
+        <h1>Learning</h1>
+        <a class="ui-shadow ui-btn ui-corner-all" id="open_menu-button" href="#user_menu-belajar_materi-panel">Menu</a>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
@@ -206,9 +206,9 @@
 <div data-role="page" id="materi-page">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" id="open_menu-button" href="#user_menu-materi-panel">Menu</a>
-        <h1>Materi Learning</h1>
         <a class="ui-shadow ui-btn ui-corner-all" href="#belajar_materi-page">Kembali</a>
+        <h1>Materi Learning</h1>
+        <a class="ui-shadow ui-btn ui-corner-all" id="open_menu-button" href="#user_menu-materi-panel">Menu</a>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
@@ -237,9 +237,9 @@
 <div data-role="page" id="page-ujian">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" href="#ujian-menu">Menu</a>
-        <h1>Tryout</h1>
         <a class="ui-shadow ui-btn ui-corner-all" href="#home-page">Kembali</a>
+        <h1>Tryout</h1>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#ujian-menu">Menu</a>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
@@ -270,8 +270,8 @@
 <div data-role="page" id="page-start_ujian">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" href="#start_ujian-menu">Menu</a>
         <h1>Mulai Tryout</h1>
+        <a class="ui-shadow ui-btn ui-corner-all ui-btn-right" href="#start_ujian-menu">Menu</a>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
@@ -395,8 +395,8 @@
 <div data-role="page" id="page-hasil">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" href="#hasil-menu">Menu</a>
         <h1>Hasil Tryout</h1>
+        <a class="ui-shadow ui-btn ui-corner-all ui-btn-right" href="#hasil-menu">Menu</a>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
@@ -463,9 +463,9 @@
 <div data-role="page" id="page-review">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" href="#review-menu">Menu</a>
-        <h1>Review Tryout</h1>
         <a class="ui-shadow ui-btn ui-corner-all" href="#page-hasil">Kembali</a>
+        <h1>Review Tryout</h1>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#review-menu">Menu</a>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
@@ -520,9 +520,9 @@
 <div data-role="page" id="page-history">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" href="#menu-history">Menu</a>
-        <h1>History</h1>
         <a class="ui-shadow ui-btn ui-corner-all" href="#home-page">Kembali</a>
+        <h1>History</h1>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#menu-history">Menu</a>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
@@ -553,7 +553,7 @@
 <div data-role="page" id="page-profil">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" href="#profil-menu">Menu</a>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#home-page">Kembali</a>
         <h1>Profil</h1>
     </div><!-- /header -->
 
@@ -578,21 +578,11 @@
             </table>
         </p>
         <a class="ui-shadow ui-btn ui-corner-all" href="#page-ubah_profil">Ubah Profil</a>
-        <a class="ui-shadow ui-btn ui-corner-all" href="#home-page">Kembali</a>
     </div><!-- /content -->
 
     <div data-role="footer" data-position="fixed">
         <h4>&copy; 2015 Studiwidie App</h4>
     </div><!-- /footer -->
-
-    <div data-role="panel" id="profil-menu" data-display="overlay">
-        <ul data-role="listview">
-            <li id="menu-profil-nama">Menu</li>
-            <li><a href="#page-profil" id="open-profil">Profil</a></li>
-            <li><a href="#page-about">About</a></li>
-            <li><a id="logout">Logout</a></li>
-        </ul>
-    </div><!-- /panel -->
 
     <div id="profil-popup" data-role="popup" data-theme='b'>
         <p id="profil-notif">Notification</p>
@@ -602,9 +592,9 @@
 <div data-role="page" id="page-ubah_profil">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" href="#ubah_profil-menu">Menu</a>
-        <h1>Ubah Profil</h1>
         <a class="ui-shadow ui-btn ui-corner-all" href="#page-profil">Kembali</a>
+        <h1>Ubah Profil</h1>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#ubah_profil-menu">Menu</a>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
@@ -642,9 +632,9 @@
 <div data-role="page" id="page-about">
 
     <div data-role="header">
-        <a class="ui-shadow ui-btn ui-corner-all" href="#about-menu">Menu</a>
-        <h1>About Studiwidie</h1>
         <a class="ui-shadow ui-btn ui-corner-all" href="#home-page">Kembali</a>
+        <h1>About Studiwidie</h1>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#about-menu">Menu</a>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">

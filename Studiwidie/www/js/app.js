@@ -20,8 +20,8 @@ var first_time_ujian    = true;
 var first_time_review   = true;
 var first_time_materi   = true;
 
-//var api_url = 'http://api.studiwidie.com'; // Production
-var api_url = 'http://api.localhost'; // Production
+var api_url = 'http://api.studiwidie.com'; // Production
+//var api_url = 'http://api.localhost'; // Production
 //var api_url = 'http://api.studiwidie.app'; // Development
 
 $( document ).on( "mobileinit", function() {
