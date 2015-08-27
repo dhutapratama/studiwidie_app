@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+ <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
 	Data ID yang masuk kedalam model ini harus terenskripsi.
@@ -15,12 +15,17 @@ class M_mata_pelajaran extends CI_Model{
 	}
 
 	// Retrieve data by id from table
-	public function get_mata_pelajaran_by_id ($encrypted_id = '') {
-		$id = $this->encrypt->decode($encrypted_id);
-		
-		if ($id == '') {
-			$id = $this->encrypt->decode(urldecode($encrypted_id));
+	public function get_mata_pelajaran_by_id ($id_ = '', $encrypted = true) {
+		if ($encrypted) {
+			$id = $this->encrypt->decode($id_);
+			
+			if ($id == '') {
+				$id = $this->encrypt->decode(urldecode($id_));
+			}
+		} else {
+			$id = $id_;
 		}
+			
 
 		$database = $this->db->select('*')
 					->from('mata_pelajaran')

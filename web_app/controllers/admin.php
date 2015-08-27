@@ -632,4 +632,29 @@ class Admin extends CI_Controller {
 		redirect(base_url('admin/learning/mapel.html').'?id_mapel='.hash_id($get_learning->id_mapel));
 	}
 	// End Mapel Function
+
+	// Start Administrator Function
+	public function tryouts($action = '', $id = '') {
+		switch ($action) {
+			case 'view':
+				$data['use_table']	= true;
+				$this->_tryout_by_user();
+				break;
+
+			default:
+				$data['get_siswa'] = $this->m_users->get_users();
+				$data['use_table'] = true;
+
+				$this->render->view('tryouts', $data);
+				break;
+		}
+	}
+
+	private function _tryout_by_user () {
+		$data['id_user'] 	  = $this->input->get('id');
+
+		$data['get_tryout'] = $this->m_log_tryout->get_log_tryout_by_id_user($data['id_user']);
+
+		$this->render->view('tryouts_view', $data);
+	}
 }

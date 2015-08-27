@@ -78,4 +78,16 @@ class M_log_tryout extends CI_Model{
 	// Custom Function
 	// ------------------------------
 
+	// Retrieve data by id from table
+	public function get_log_tryout_by_id_user ($encrypted_id = '') {
+		$id_user = $this->encrypt->decode($encrypted_id);
+
+		$database = $this->db->select('*')
+					->from('log_tryout')
+					->where('id_user', $id_user)
+					->order_by('tanggal', 'DESC')
+					->get()->result();
+
+		return $database;
+	}
 }

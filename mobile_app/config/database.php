@@ -14,7 +14,7 @@ switch ($_SERVER['HTTP_HOST']) {
 	case 'api.studiwidie.com':
 		$db['default']['hostname'] = 'localhost';
 		$db['default']['username'] = 'dhutapra_studiwi';
-		$db['default']['password'] = '';
+		$db['default']['password'] = '8kuHMF(]n{}w';
 		$db['default']['database'] = 'dhutapra_studiwidie';
 		break;
 

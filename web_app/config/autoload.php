@@ -12,5 +12,7 @@ $autoload['model'] 		= array(
 							'm_users',
 							'm_mata_pelajaran',
 							'm_soal',
-							'm_learning'
+							'm_learning',
+							'm_log_tryout',
+							'm_log_jawaban',
 						);
