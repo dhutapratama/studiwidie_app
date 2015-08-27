@@ -103,7 +103,7 @@
                 </a>
             </li>
             <li>
-                <a href="#page-ujian">
+                <a href="#page-latihan">
                     <img src="menu_icon/checkmark.png">
                     <h2>Latihan</h2>
                     <p>Melakukan Kuis Dengan Hint</p>
@@ -664,6 +664,230 @@
 
     <div id="about-popup" data-role="popup" data-theme='b'>
         <p id="about-notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
+
+<div data-role="page" id="page-latihan">
+
+    <div data-role="header">
+        <a class="ui-shadow ui-btn ui-corner-all" href="#home-page">Kembali</a>
+        <h1>Latihan</h1>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#latihan-menu">Menu</a>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <p data-inset="true"><h4>Pilih mata pelajaran :</h4></p>
+        <ul data-role="listview" id="latihan-mapel" data-inset="true">
+            <li>Sedang mengambil data ...</li>
+        </ul>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div data-role="panel" id="latihan-menu" data-display="overlay">
+        <ul data-role="listview">
+            <li id="latihan-nama">Menu</li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
+            <li><a href="#page-about">About</a></li>
+            <li><a id="logout">Logout</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    <div id="latihan-popup" data-role="popup" data-theme='b'>
+        <p id="latihan-notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
+
+<div data-role="page" id="page-start_latihan">
+
+    <div data-role="header">
+        <h1>Mulai Tryout</h1>
+        <a class="ui-shadow ui-btn ui-corner-all ui-btn-right" href="#start_latihan-menu">Menu</a>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <p id="start_latihan-keterangan" data-inset="true">
+            Anda akan melakukan tryout online, apabila anda secara sengaja atau tidak sengaja
+            keluar dari aplikasi studiwidie, anda akan dianggap telah selesai melaksanakan tryout online.
+        </p>
+        <p>
+            <table>
+                <tr>
+                    <td>Mata Pelajaran :</td>
+                    <td id="start_latihan-mapel"></td>
+                </tr>
+                <tr>
+                    <td>Nomor Seri :</td>
+                    <td id="start_latihan-seri"></td>
+                </tr>
+            </table>
+        </p>
+        <button class="ui-shadow ui-btn ui-corner-all" id="go_latihan">OK, Mulai latihan!</button>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#page-latihan">Kembali</a>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div data-role="panel" id="start_latihan-menu" data-display="overlay">
+        <ul data-role="listview">
+            <li id="start_latihan-nama">Menu</li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
+            <li><a href="#page-about">About</a></li>
+            <li><a id="logout">Logout</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    <div id="start_latihan-popup" data-role="popup" data-theme='b'>
+        <p id="start_latihan-notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
+
+<div data-role="page" id="page-progress-latihan">
+
+    <div data-role="header">
+        <h1>Latihan <i id="header-mapel"></i></h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <table border="1" width="100%" cellspacing="0">
+            <tr align="center">
+                <td id="progress-nomor_latihan">No. 1</td>
+                <td id="progress-mapel_latihan">Mapel</td>
+                <td id="progress-waktu_latihan">Waktu</td>
+            </tr>
+        </table>
+
+        <p id="progress-soal_latihan"></p>
+
+        <input name="jawaban_latihan" id="jawaban-a_latihan" value="a" type="radio">
+        <label for="jawaban-a_latihan" id="ans-a_latihan">A. </label>
+        <input name="jawaban_latihan" id="jawaban-b_latihan" value="b" type="radio">
+        <label for="jawaban-b_latihan" id="ans-b_latihan">B. </label>
+        <input name="jawaban_latihan" id="jawaban-c_latihan" value="c" type="radio">
+        <label for="jawaban-c_latihan" id="ans-c_latihan">C. </label>
+        <input name="jawaban_latihan" id="jawaban-d_latihan" value="d" type="radio">
+        <label for="jawaban-d_latihan" id="ans-d_latihan">D. </label>
+        <input name="jawaban_latihan" id="jawaban-e_latihan" value="e" type="radio">
+        <label for="jawaban-e_latihan" id="ans-e_latihan">E. </label>
+
+        <div class="ui-grid-b">
+            <div class="ui-block-a"><button disabled="false" id="latihan-back" class="ui-btn ui-btn-b ui-icon-arrow-l ui-btn-icon-left">Kembali</button></div>
+            <div class="ui-block-b"><button disabled="false" id="latihan-next" class="ui-btn ui-btn-b ui-icon-arrow-r ui-btn-icon-right">Lanjut</button></div>
+        </div>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div id="progress-popup" data-role="popup" data-theme='b'>
+        <p id="progress-notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
+
+<div data-role="page" id="page-finish_latihan">
+
+    <div data-role="header">
+        <h1>Akhiri Tryout</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <p id="finish-keterangan" data-inset="true">
+            Soal tryout sudah habis, tekan tombol kembali untuk mengecek jawaban atau tekan tombol selesai untuk mengakhiri tryout.
+        </p>
+        <table>
+            <tr>
+                <td>Mata Pelajaran</td>
+                <td>:</td>
+                <td id="finish-mapel-latihan"></td>
+            </tr>
+            <tr>
+                <td>Nomor Seri</td>
+                <td>:</td>
+                <td id="finish-seri-latihan"></td>
+            </tr>
+        </table>
+        <button class="ui-shadow ui-btn ui-corner-all" id="stop-latihan" data-theme="b">Selesai!</button>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#page-progress">Kembali</a>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div id="finish-popup" data-role="popup" data-theme='b'>
+        <p id="finish-notif">Notification</p>
+    </div><!-- /notification -->
+</div><!-- /page -->
+
+<div data-role="page" id="page-hasil_latihan">
+
+    <div data-role="header">
+        <h1>Hasil Latihan</h1>
+        <a class="ui-shadow ui-btn ui-corner-all ui-btn-right" href="#hasil-menu">Menu</a>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <table class="">
+            <tr>
+                <td>Mata Pelajaran</td>
+                <td>:</td>
+                <td id="hasil-mapel_latihan">-</td>
+            </tr>
+            <tr>
+                <td>Nomor Seri</td>
+                <td>:</td>
+                <td id="hasil-seri_latihan">-</td>
+            </tr>
+            <tr>
+                <td>Tanggal</td>
+                <td>:</td>
+                <td id="hasil-tanggal_latihan">-</td>
+            </tr>
+            <tr>
+                <td>Jumlah Soal</td>
+                <td>:</td>
+                <td id="hasil-jumlah_latihan">-</td>
+            </tr>
+            <tr>
+                <td>Jawaban Benar</td>
+                <td>:</td>
+                <td id="hasil-benar_latihan">-</td>
+            </tr>
+            <tr>
+                <td>Jawaban Salah</td>
+                <td>:</td>
+                <td id="hasil-salah_latihan">-</td>
+            </tr>
+            <tr>
+                <td>Nilai</td>
+                <td>:</td>
+                <td id="hasil-nilai_latihan">-</td>
+            </tr>
+
+        </table>
+        <a class="ui-shadow ui-btn ui-corner-all" href="#home-page">Kembali</a>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2015 Studiwidie App</h4>
+    </div><!-- /footer -->
+
+    <div data-role="panel" id="hasil-menu" data-display="overlay">
+        <ul data-role="listview">
+            <li id="hasil-nama">Menu</li>
+            <li><a href="#page-profil" id="open-profil">Profil</a></li>
+            <li><a href="#page-about">About</a></li>
+            <li><a id="logout">Logout</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    <div id="hasil-popup" data-role="popup" data-theme='b'>
+        <p id="hasil-notif">Notification</p>
     </div><!-- /notification -->
 </div><!-- /page -->
 

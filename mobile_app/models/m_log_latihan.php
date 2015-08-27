@@ -4,12 +4,12 @@
 	Data ID yang masuk kedalam model ini harus terenskripsi.
 */
 
-class M_log_tryout extends CI_Model{
+class M_log_latihan extends CI_Model{
 
 	// Retrieve all data from table
 	public function get_log_tryout () {
 		$database = $this->db->select('*')
-					->from('log_tryout')
+					->from('log_latihan')
 					->get()->result();
 		return $database;
 	}
@@ -19,7 +19,7 @@ class M_log_tryout extends CI_Model{
 		$id = $this->encrypt->decode($encrypted_id);
 
 		$database = $this->db->select('*')
-					->from('log_tryout')
+					->from('log_latihan')
 					->where('id', $id)
 					->get();
 
@@ -44,7 +44,7 @@ class M_log_tryout extends CI_Model{
 			$data['jumlah_soal']   = ;
 		*/
 
-		$database = $this->db->insert('log_tryout', $data);
+		$database = $this->db->insert('log_latihan', $data);
 		return $database;
 	}
 
@@ -61,7 +61,7 @@ class M_log_tryout extends CI_Model{
 		*/
 
 		$this->db->where('id', $id);
-		$database = $this->db->update('log_tryout', $data);
+		$database = $this->db->update('log_latihan', $data);
 		return $database;
 	}
 
@@ -69,7 +69,7 @@ class M_log_tryout extends CI_Model{
 	public function delete_log_tryout ($encrypted_id = '') {
 		$id = $this->encrypt->decode($encrypted_id);
 		$this->db->where('id', $id);
-		$database = $this->db->delete('log_tryout');
+		$database = $this->db->delete('log_latihan');
 		return $database;
 	}
 
@@ -89,7 +89,7 @@ class M_log_tryout extends CI_Model{
 
 		foreach ($get_soal as $key => $value) {
 			$database = $this->db->select('*')
-					->from('log_tryout')
+					->from('log_latihan')
 					->where('id_user', $id_user)
 					->where('no_seri', $value->no_seri)
 					->where('id_mapel', $id_mapel)
@@ -111,7 +111,7 @@ class M_log_tryout extends CI_Model{
 		$no_seri  = $data['no_seri'];
 
 		$database = $this->db->select('*')
-				->from('log_tryout')
+				->from('log_latihan')
 				->where('id_user', $id_user)
 				->where('no_seri', $no_seri)
 				->where('id_mapel', $id_mapel)
@@ -131,7 +131,7 @@ class M_log_tryout extends CI_Model{
 		$id_user = $this->encrypt->decode($encrypted_id);
 
 		$database = $this->db->select('*')
-					->from('log_tryout')
+					->from('log_latihan')
 					->where('id_user', $id_user)
 					->order_by('tanggal', 'DESC')
 					->get()->result();

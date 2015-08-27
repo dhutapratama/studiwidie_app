@@ -20,9 +20,9 @@ var first_time_ujian    = true;
 var first_time_review   = true;
 var first_time_materi   = true;
 
-var api_url = 'http://api.studiwidie.com'; // Production
+//var api_url = 'http://api.studiwidie.com'; // Production
 //var api_url = 'http://api.localhost'; // Production
-//var api_url = 'http://api.studiwidie.app'; // Development
+var api_url = 'http://api.studiwidie.app'; // Development
 
 $( document ).on( "mobileinit", function() {
     console.log("Studiwidie initialization is started.");
@@ -111,6 +111,8 @@ function set_nama( nama ) {
     $( '#ubah_profil-nama' ).html( nama );
     $( '#ubah_profil-nama' ).html( nama );
     $( '#about-nama' ).html( nama );
+    $( '#latihan-nama' ).html( nama );
+    $( '#start_latihan-nama' ).html( nama );
 }
 
 function reset_all_input () {
@@ -880,6 +882,432 @@ function finishUjian() {
 
 // --------------------------------- End ujian Page ---------------------------------
 
+$( document ).on( "pagecreate", "#page-latihan", function() {
+
+    $.mobile.loading( "show" );
+
+    post_url = "/siswa/get_mapel_latihan";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "mata_pelajaran"
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                console.log("Mengambil data mata pelajaran.");
+                $( '#latihan-mapel' ).html( obj.data.get_mapel );
+                $( '#latihan-mapel' ).listview( "refresh" );
+                
+            } else {
+                $.mobile.loading( "hide" );
+
+                $('#latihan-notif').html("Anda harus melakukan login untuk mengakses halaman ini.");
+                $('#latihan-popup').popup('open');
+
+                console.log("Wajib login untuk mengakses halaman ini.");
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+});
+
+$( document ).on( "vclick", "#open-latihan", function() {
+    $.mobile.loading( "show" );
+
+    id_mapel = $( this ).data('id_mapel');
+
+    post_url = "/siswa/get_latihan";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "ujian",
+            id_mapel: id_mapel
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                console.log("Mengambil latihan > id_mapel = " + id_mapel + '.');
+
+                if (obj.data.seri == false) {
+                    $('#latihan-notif').html("Semua soal latihan " + obj.data.mapel + " telah diselesaikan. Untuk saat ini pilihlah mata pelajaran yang lainnya.");
+                    $('#latihan-popup').popup('open');
+                } else {
+                    ujian_mapel = id_mapel;
+                    ujian_seri  = obj.data.seri;
+
+                    location.hash = 'page-start_latihan';
+                    $( '#start_latihan-seri' ).html( obj.data.seri);
+                    $( '#start_latihan-mapel' ).html( obj.data.mapel);
+                    ujian_mapel_text = obj.data.mapel;
+                }
+            } else {
+                $.mobile.loading( "hide" );
+
+                $('#latihan-notif').html("Anda harus melakukan login untuk mengakses halaman ini.");
+                $('#latihan-popup').popup('open');
+
+                console.log("Wajib login untuk mengakses halaman ini.");
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+});
+
+$( document ).on( "vclick", "#go_latihan", function() {
+    $.mobile.loading( "show" );
+
+    ujian_nomor = 0;
+    post_url = "/siswa/init_latihan";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "init_latihan",
+            id_mapel: ujian_mapel,
+            no_seri: ujian_seri,
+            nomor_soal: ujian_nomor
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                console.log("Menginisialisasi latihan dengan seri " + ujian_seri + '.');
+                location.hash = 'page-progress-latihan';
+
+                jumlah_soal = obj.data.jumlah_soal;
+                $('#progress-soal_latihan').html(obj.data.soal);
+                $('#ans-a_latihan').html("A. " + obj.data.jawaban_a);
+                $('#ans-b_latihan').html("B. " + obj.data.jawaban_b);
+                $('#ans-c_latihan').html("C. " + obj.data.jawaban_c);
+                $('#ans-d_latihan').html("D. " + obj.data.jawaban_d);
+                $('#ans-e_latihan').html("E. " + obj.data.jawaban_e);
+
+                if (first_time_ujian == true) {
+                    first_time_ujian = false;
+                } else {
+                    $('#jawaban-a_latihan').prop('checked', false).checkboxradio('refresh');
+                    $('#jawaban-b_latihan').prop('checked', false).checkboxradio('refresh');
+                    $('#jawaban-c_latihan').prop('checked', false).checkboxradio('refresh');
+                    $('#jawaban-d_latihan').prop('checked', false).checkboxradio('refresh');
+                    $('#jawaban-e_latihan').prop('checked', false).checkboxradio('refresh');
+                }
+
+                count  = 1800;
+                counter = setInterval(timer, 1000); //1000 will run it every 1 second
+                page_set_latihan();
+
+            } else {
+                $.mobile.loading( "hide" );
+
+                $('#latihan-notif').html("Anda harus melakukan login untuk mengakses halaman ini.");
+                $('#latihan-popup').popup('open');
+
+                console.log("Wajib login untuk mengakses halaman ini.");
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+});
+
+$( document ).on( "vclick", "#latihan-next", function() {
+
+    console.log('Next button triggered.');
+
+    if( $('#jawaban-a').is( ":checked" ) == true ) {
+        jawaban = 'a';
+    } else if( $('#jawaban-b_latihan').is( ":checked" ) == true ) {
+        jawaban = 'b';
+    } else if( $('#jawaban-c_latihan').is( ":checked" ) == true ) {
+        jawaban = 'c';
+    } else if( $('#jawaban-d_latihan').is( ":checked" ) == true ) {
+        jawaban = 'd';
+    } else if( $('#jawaban-e_latihan').is( ":checked" ) == true ) {
+        jawaban = 'e';
+    }
+
+    if( jawaban == '' ) { 
+        $('#progress-notif').html("Anda belum memilih jawaban.");
+        $('#progress-popup').popup('open');
+    } else {
+        console.log('Update jawaban di server.');
+        update_ujian_latihan();
+        console.log('Jawaban untuk soal nomor ' + ujian_nomor + ' adalah ' + jawaban + '.');
+        ujian_nomor++;
+        
+        if (ujian_nomor == jumlah_soal) {
+            location.hash = "page-finish_latihan";
+            console.log('Update jawaban di server.');
+            finishUjian_latihan();
+        } else {
+            console.log("Ambil soal latihan dengan seri " + ujian_seri + ' dan nomor array ' + ujian_nomor + '.');
+            get_soal_latihan();
+        }
+
+        // Reset
+        page_set_latihan();
+        jawaban = '';
+    }  
+});
+
+$( document ).on( "vclick", "#latihan-back", function() {
+    console.log('Back button triggered.');
+
+    if ((ujian_nomor + 1) == jumlah_soal) {
+        clearInterval(counter);
+        location.hash = "page-finish_latihan";
+    } else {
+        if( $('#jawaban-a').is( ":checked" ) == true ) {
+            jawaban = 'a';
+        } else if( $('#jawaban-b_latihan').is( ":checked" ) == true ) {
+            jawaban = 'b';
+        } else if( $('#jawaban-c_latihan').is( ":checked" ) == true ) {
+            jawaban = 'c';
+        } else if( $('#jawaban-d_latihan').is( ":checked" ) == true ) {
+            jawaban = 'd';
+        } else if( $('#jawaban-e_latihan').is( ":checked" ) == true ) {
+            jawaban = 'e';
+        }
+
+        if (jawaban != '') {
+            console.log('Update jawaban di server.');
+            update_ujian_latihan();
+            console.log('Jawaban untuk soal nomor ' + ujian_nomor + ' adalah ' + jawaban + '.');
+        }
+
+        ujian_nomor--;
+        console.log("Ambil soal ujian dengan seri " + ujian_seri + ' dan nomor array ' + ujian_nomor + '.');
+        get_soal_latihan();
+
+        // Reset
+        page_set_latihan();
+        jawaban = '';
+    }  
+});
+
+$( document ).on( "vclick", "#stop-latihan", function() {
+    console.log('latihan diakhiri!');
+    clearInterval(counter);
+    location.hash = "page-hasil_latihan";
+    $.mobile.loading( "show" );
+
+    post_url = "/siswa/get_hasil_latihan";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "hasil_latihan",
+            id_mapel: ujian_mapel,
+            no_seri: ujian_seri
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                console.log('Mengambil hasil latihan.');
+                location.hash = "page-hasil_latihan";
+                $('#hasil-mapel_latihan').html(obj.data.mata_pelajaran);
+                $('#hasil-seri_latihan').html(obj.data.no_seri);
+                $('#hasil-tanggal_latihan').html(obj.data.tanggal);
+                $('#hasil-jumlah_latihan').html(obj.data.jumlah_soal);
+                $('#hasil-benar_latihan').html(obj.data.jawaban_benar);
+                $('#hasil-salah_latihan').html(obj.data.jawaban_salah);
+                $('#hasil-nilai_latihan').html(obj.data.nilai);
+            } else {
+                loginRequired();
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+});
+
+function get_soal_latihan() {
+    $.mobile.loading( "show" );
+
+    post_url = "/siswa/get_soal_latihan";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "update_latihan",
+            id_mapel: ujian_mapel,
+            no_seri: ujian_seri,
+            nomor_soal: ujian_nomor
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == true) {
+                console.log('Update soal di client.');
+
+                $('#progress-soal_latihan').html(obj.data.soal);
+                $('#ans-a_latihan').html("A. " + obj.data.jawaban_a);
+                $('#ans-b_latihan').html("B. " + obj.data.jawaban_b);
+                $('#ans-c_latihan').html("C. " + obj.data.jawaban_c);
+                $('#ans-d_latihan').html("D. " + obj.data.jawaban_d);
+                $('#ans-e_latihan').html("E. " + obj.data.jawaban_e);
+
+                ujian_hint_number = obj.data.hint;
+
+                ujian_hint = [ obj.data.hint_1, obj.data.hint_2, obj.data.hint_3 ];
+                ujian_jawaban = obj.data.jawaban;
+                preparePageUjian();
+                reset_jawaban();
+                
+            } else {
+                $.mobile.loading( "hide" );
+
+                $('#latihan-notif').html("Anda harus melakukan login untuk mengakses halaman ini.");
+                $('#latihan-popup').popup('open');
+
+                console.log("Wajib login untuk mengakses halaman ini.");
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+}
+
+function update_latihan() {
+    $.mobile.loading( "show" );
+
+    post_url = "/siswa/update_latihan";
+
+    $.ajax({ type: 'POST', url: api_url + post_url, data: 
+        {
+            request: "update_latihan",
+            id_mapel: ujian_mapel,
+            no_seri: ujian_seri,
+            nomor_soal: ujian_nomor,
+            jawaban : jawaban,
+            hint : ujian_hint_number
+        },
+
+        xhrFields: { withCredentials: true },
+        
+        success: function(data, textStatus ){
+            $.mobile.loading( "hide" );
+            // JSON response
+            var obj = jQuery.parseJSON( data );
+
+            if(obj.logged_in == false) {
+                $.mobile.loading( "hide" );
+
+                $('#latihan-notif').html("Anda harus melakukan login untuk mengakses halaman ini.");
+                $('#latihan-popup').popup('open');
+
+                console.log("Wajib login untuk mengakses halaman ini.");
+                setTimeout(function (){
+                    location.hash = "public-page";
+                }, 2000);
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){ network_error(); $.mobile.loading( "hide" ); }
+    });
+}
+
+function page_set_latihan() {
+    console.log('Page reset configuration.');
+    //Tombol Back
+    if (ujian_nomor > 0) {
+        $('#latihan-back').prop('disabled', false);
+        $('#latihan-hint').prop('disabled', false);
+        $('#latihan-next').prop('disabled', false);
+    } else {
+        $('#latihan-back').prop('disabled', true);
+        $('#latihan-hint').prop('disabled', false);
+        $('#latihan-next').prop('disabled', false);
+    }
+
+    $('#progress-nomor_latihan').html('No.' + (ujian_nomor + 1));
+    $('#progress-mapel_latihan').html(ujian_mapel_text);
+    $('#progress-waktu_latihan').html(count_down_time);
+}
+
+function preparePageLatihan() {
+    $('#jawaban-a_latihan').prop('checked', false).checkboxradio('refresh');
+    $('#jawaban-b_latihan').prop('checked', false).checkboxradio('refresh');
+    $('#jawaban-c_latihan').prop('checked', false).checkboxradio('refresh');
+    $('#jawaban-d_latihan').prop('checked', false).checkboxradio('refresh');
+    $('#jawaban-e_latihan').prop('checked', false).checkboxradio('refresh');
+}
+
+function reset_jawaban_latihan() {
+    $('#jawaban-a_latihan').prop('checked', false).checkboxradio('refresh');
+    $('#jawaban-b_latihan').prop('checked', false).checkboxradio('refresh');
+    $('#jawaban-c_latihan').prop('checked', false).checkboxradio('refresh');
+    $('#jawaban-d_latihan').prop('checked', false).checkboxradio('refresh');
+    $('#jawaban-e_latihan').prop('checked', false).checkboxradio('refresh');
+
+    if (ujian_jawaban == 'a') {
+        $('#jawaban-a_latihan').prop('checked', true).checkboxradio('refresh');
+    } else if(ujian_jawaban == 'b') {
+        $('#jawaban-b_latihan').prop('checked', true).checkboxradio('refresh');
+    } else if(ujian_jawaban == 'c') {
+        $('#jawaban-c_latihan').prop('checked', true).checkboxradio('refresh');
+    } else if(ujian_jawaban == 'd') {
+        $('#jawaban-d_latihan').prop('checked', true).checkboxradio('refresh');
+    } else if(ujian_jawaban == 'e') {
+        $('#jawaban-e_latihan').prop('checked', true).checkboxradio('refresh');
+    }
+}
+
+function timer_latihan() {
+    
+    if (count == 0) {
+        // Jika waktu habis.
+    } else {
+        count = count - 1;
+        var seconds = count % 60;
+        var minutes = Math.floor(count / 60);
+        var hours = Math.floor(minutes / 60);
+        minutes %= 60;
+        hours %= 60;
+
+        count_down_time = hours + ':' + minutes + ':' + seconds;
+        $('#progress-waktu_latihan').html(count_down_time);
+    }
+}
+
+function finishUjian_latihan() {
+    $( "#finish-mapel_latihan" ).html( ujian_mapel_text );
+    $( "#finish-seri_latihan" ).html( ujian_seri );
+}
 
 // --------------------------------- Start hasil Page ---------------------------------
 
